@@ -1,13 +1,15 @@
 import React from "react";
 import "../index.css";
 
-export default function ProgressIcon({ name, questions }) {
+export default function ProgressIcon({ name, category }) {
+
+  console.log(category.color);
 
   const calculateProgress = () => {
     const isComplete = (question) => question.completed === 1;
-    const total = Object.keys(questions).length;
+    const total = Object.keys(category.questions).length;
     var complete = 0;
-    for (const [id, question] of Object.entries(questions)) {
+    for (const [id, question] of Object.entries(category.questions)) {
       if (isComplete(question)) {
         complete += 1
       }
@@ -17,7 +19,7 @@ export default function ProgressIcon({ name, questions }) {
 
   return (
     <div>
-      <div className="card" sx={{ width: 330 }}>
+      <div className="card" style={{backgroundColor: category.color}}>
         <div className="cardDescription" variant="h6">
           {name}
         </div>

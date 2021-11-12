@@ -12,12 +12,16 @@ code {
     monospace;
 }
 
+.cardDescription {
+  text-align: left;
+  padding: 5px;
+}
 .progressBarFront {
   border-radius: 25px;
   padding: 4px;
   margin: 2px;
-  background-color: rgb(148, 24, 24);
-  height: 5px;
+  background-color: grey;
+  height: 1px;
   position: absolute;
 }
 
@@ -27,12 +31,11 @@ code {
   margin: 2px;
   background-color: white;
   width: 135px;
-  height: 5px;
+  height: 1px;
   position: absolute;
 }
 
 .card {
-  background-color: burlywood;
   border-radius: 15px;
   padding: 4px;
   margin: 2px;
