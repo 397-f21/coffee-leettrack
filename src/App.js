@@ -1,12 +1,11 @@
-import logo from "./logo.svg";
 import { useState } from "react";
-import "./App.css";
+import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 
 function App() {
   const [categories, setCategories] = useState({
     "arrays": {
-      "color" : "#f5c542",
+      "color" : "#e8921a",
       "questions": {
         "1" : {
           "name" : "Container with Most Water",
@@ -26,7 +25,7 @@ function App() {
       }
     },
     "two pointers": {
-      "color": "#42e3f5",
+      "color": "#3eacc2",
       "questions": {
 
         "1" : {
@@ -47,7 +46,7 @@ function App() {
       }
     },
     "sliding window": {
-      "color" : "#d45587",
+      "color" : "#09944c",
       "questions" : {
         "1" : {
           "name" : "Container with Most Water",
@@ -65,16 +64,38 @@ function App() {
           "completed" : 1
         }
       }
+    },
+    "bfs & dfs": {
+      "color" : "#b03a73",
+      "questions" : {
+        "1" : {
+          "name" : "Container with Most Water",
+          "url" : "https://leetcode.com/problems/container-with-most-water",
+          "completed" : 1
+        },
+        "2" : {
+          "name" : "String to Integer",
+          "url" : "https://leetcode.com/problems/string-to-integer-atoi",
+          "completed" : 0
+        },
+        "3" : {
+          "name" : "3Sum",
+          "url" : "https://leetcode.com/problems/3sum",
+          "completed" : 1
+        }
+      }
     }
   });
   return (
     <div className="App">
+      <div id="progress-icon-list">
         {Object.keys(categories).map((categoryName) => (
-            <ProgressIcon 
-              key={categoryName} 
-              name={categoryName}
-              category={categories[categoryName]}/>
+          <ProgressIcon 
+            key={categoryName} 
+            name={categoryName}
+            category={categories[categoryName]}/>
         ))}
+      </div>
       
     </div>
   );

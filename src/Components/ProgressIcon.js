@@ -4,7 +4,8 @@ import "../index.css";
 export default function ProgressIcon({ name, category }) {
 
   console.log(category.color);
-
+  const grey = "#dedede";
+  
   const calculateProgress = () => {
     const isComplete = (question) => question.completed === 1;
     const total = Object.keys(category.questions).length;
@@ -19,12 +20,13 @@ export default function ProgressIcon({ name, category }) {
 
   return (
     <div>
-      <div className="card" style={{backgroundColor: category.color}}>
+      <div className="card" style={{background: `linear-gradient(to bottom,  ${category.color} 0%,${grey} 100%)`}}>
+      {/* <div className="card" style={{backgroundColor: category.color}}> */}
         <div className="cardDescription" variant="h6">
           {name}
         </div>
-        <div className="progressBarBack"></div>
-        <div className="progressBarFront" style={{width: calculateProgress()}}></div> 
+        <div className="progressBar progressBarBack"></div>
+        <div className="progressBar progressBarFront" style={{width: calculateProgress()}}></div> 
 
       </div>
     </div>

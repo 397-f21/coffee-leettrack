@@ -12,33 +12,42 @@ code {
     monospace;
 }
 
+#progress-icon-list {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .cardDescription {
   text-align: left;
+  text-transform: uppercase;
   padding: 5px;
+  color: white;
+  font-weight: 400;
 }
-.progressBarFront {
+
+.progressBar {
   border-radius: 25px;
-  padding: 4px;
-  margin: 2px;
-  background-color: grey;
-  height: 1px;
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 10px;
   position: absolute;
 }
 
+.progressBarFront {
+  background-color:#383c42;
+}
+
 .progressBarBack {
-  border-radius: 25px;
-  padding: 4px;
-  margin: 2px;
   background-color: white;
-  width: 135px;
-  height: 1px;
-  position: absolute;
+  width: 180px;
 }
 
 .card {
   border-radius: 15px;
   padding: 4px;
   margin: 2px;
-  width: 150px;
+  width: 200px;
   height: 50px;
 }
