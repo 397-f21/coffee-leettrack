@@ -40,7 +40,15 @@ code {
   display: flex;
   gap: 70px;
 }
-
+a{
+  text-decoration: none;
+}
+a:link {
+  color: rgb(56, 98, 212);
+}
+a:visited {
+  color: rgb(168, 173, 168);
+}
 button{
   background: linear-gradient(to bottom,  #4d941b 0%, #dedede 100%);
   color: white;

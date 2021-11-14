@@ -133,6 +133,11 @@ function App() {
     const shuffled = problemsToDo.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, dailyGoal);
   }
+  
+  //function for set daily goal
+  const handleDailyGoal =(event)=>{
+    setDailyGoal(event.target.value);
+  }
 
 
 
@@ -151,8 +156,21 @@ function App() {
         </div>
         <div id="problems-list">
           <div className="problem-list-header">
-            <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Daily Goal: {dailyGoal} problems</Typography>
-            <button>edit</button>
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Daily Goal:</Typography>
+              <FormControl fullWidth>
+                <InputLabel>Priority</InputLabel>
+                <Select
+                  value={dailyGoal}
+                  //label="Priority"
+                  onChange={handleDailyGoal}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                </Select>
+              </FormControl>
           </div >
           <br/>
           <div>
