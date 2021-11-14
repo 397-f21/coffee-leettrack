@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./index.css";
 
 import ProgressIcon from "./Components/ProgressIcon";
-import Typography from "@mui/material/Typography";
+import { Typography, MenuItem, FormControl, Select } from "@mui/material";
+
 
 function App() {
   const [categories, setCategories] = useState({
@@ -98,8 +99,6 @@ function App() {
     }
   });
   const [dailyGoal, setDailyGoal] = useState(2);
-  const [newProblems, setNewProblems] = useState([]);
-  const [reviewProblems, setReviewProblems] = useState([]);
 
   // function to select problems the user would like to review
   const selectReviewProblems = () => {
@@ -117,22 +116,34 @@ function App() {
     const shuffled = problemsToReview.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, dailyGoal);
   }
-  // function to select random problems that have not been completed
-  const selectRecommendedProblems = () => {
+
+  const getAllProblemsToDo = () => {
     // iterate through all problems to find all
     // which have the completed attribute of 0
-    var problemsToDo = [];
+    var toDo = [];
     for (const [id, category] of Object.entries(categories)) {
       for (const [id, question] of Object.entries(category.questions)) {
         if (question.completed === 0) {
-          problemsToDo.push(question)
+          toDo.push(question)
         }
       }
     }
+    console.log(toDo);
+    return toDo;
+  }
+
+  // function to select random problems that have not been completed
+  const selectRecommendedProblems = (toDo) => {
     // select dailyGoal random problems from that list
-    const shuffled = problemsToDo.sort(() => 0.5 - Math.random());
+    const shuffled = toDo.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, dailyGoal);
   }
+
+  const [problemsToDo, setProblemsToDo] = useState(getAllProblemsToDo());
+  console.log(problemsToDo);
+  const [newProblems, setNewProblems] = useState(selectRecommendedProblems(problemsToDo));
+  const [reviewProblems, setReviewProblems] = useState(selectReviewProblems());
+
   
   //function for set daily goal
   const handleDailyGoal =(event)=>{
@@ -157,18 +168,19 @@ function App() {
         <div id="problems-list">
           <div className="problem-list-header">
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Daily Goal:</Typography>
+              {/* <h5>{dailyGoal}</h5> */}
               <FormControl fullWidth>
-                <InputLabel>Priority</InputLabel>
                 <Select
                   value={dailyGoal}
-                  //label="Priority"
                   onChange={handleDailyGoal}
                 >
                   <MenuItem value={1}>1</MenuItem>
                   <MenuItem value={2}>2</MenuItem>
                   <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
+                  {/* {problemsToDo.map((index, problem) => {
+                    <MenuItem key={index} value={index+1}>{index+1}</MenuItem>
+                  })} */}
+                  
                 </Select>
               </FormControl>
           </div >
@@ -177,16 +189,17 @@ function App() {
             <div id="reviewProblems">
             <Typography variant="h5" sx={{ fontWeight: 'medium' }}> Problems to Review:</Typography>
               <ol>
-                {selectReviewProblems().map((question) =>
+                {reviewProblems.map((question) =>
                   <li>
                     <a href={question.url}>{question.name}</a>
-                  </li>                  )}
+                  </li>
+                )}
               </ol>
             </div>
             <div id="newProblems">
               <Typography variant="h5" sx={{ fontWeight: 'medium' }}> Recommended New Problems:</Typography>
               <ol>
-                {selectRecommendedProblems().map((question) =>
+                {newProblems.map((question) =>
                   <li>
                     <a href={question.url}>{question.name}</a>
                   </li>
