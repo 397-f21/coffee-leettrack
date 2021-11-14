@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./index.css";
+
 import ProgressIcon from "./Components/ProgressIcon";
+import Typography from "@mui/material/Typography";
 
 function App() {
   const [categories, setCategories] = useState({
@@ -88,13 +90,33 @@ function App() {
   });
   return (
     <div className="App">
-      <div id="progress-icon-list">
-        {Object.keys(categories).map((categoryName) => (
-          <ProgressIcon 
-            key={categoryName} 
-            name={categoryName}
-            category={categories[categoryName]}/>
-        ))}
+      <Typography variant="h3" > LeetTrack</Typography>
+      <div className="content">
+        <div id="progress-icon-list">
+        <Typography variant="h5" > Overall Progress:65%</Typography>
+          {Object.keys(categories).map((categoryName) => (
+            <ProgressIcon 
+              key={categoryName} 
+              name={categoryName}
+              category={categories[categoryName]}/>
+          ))}
+        </div>
+        <div id="problems-list">
+          <div className="problem-list-header">
+            <Typography variant="h5" > Daily Goal: 2 problems</Typography>
+            <button>edit</button>
+          </div >
+            <div id="problems">
+              <div>
+                <p>gfyrfgyrgfyrgyr</p>
+
+              </div>
+              <div>
+              <p>gfyrfgyrgfyrgyr</p>
+              </div>
+            </div>
+        </div>
+  
       </div>
       
     </div>
