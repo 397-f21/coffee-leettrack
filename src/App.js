@@ -13,19 +13,22 @@ function App() {
           "id" : "217",
           "name" : "Contains Duplicate",
           "url" : "https://leetcode.com/problems/contains-duplicate/",
-          "completed" : 1
+          "complete" : 1,
+          "review" : 0
         },
         "268" : {
           "id" : "268",
           "name" : "Missing Number",
           "url" : "https://leetcode.com/problems/missing-number/",
-          "completed" : 0
+          "complete" : 0,
+          "review" : 0
         },
         "136" : {
           "id" : "136",
           "name" : "Single Number",
           "url" : "https://leetcode.com/problems/single-number/",
-          "completed" : 0
+          "complete" : 0,
+          "review" : 0
         }
       }
     },
@@ -37,22 +40,22 @@ function App() {
           "id": "141",
           "name" : "Linked List Cycle",
           "url" : "https://leetcode.com/problems/linked-list-cycle/",
-          "completed" : 1,
-          "reviewAgain" : 0
+          "complete" : 1,
+          "review" : 0
         },
         "2" : {
           "id": "2",
           "name" : "Add Two Numbers",
           "url" : "https://leetcode.com/problems/add-two-numbers/",
-          "completed" : 1,
-          "reviewAgain" : 0
+          "complete" : 1,
+          "review" : 0
         },
         "148" : {
           "id": "148",
           "name" : "Sort List",
           "url" : "https://leetcode.com/problems/sort-list/",
-          "completed" : 0,
-          "reviewAgain" : 0
+          "complete" : 0,
+          "review" : 0
         }
       }
     },
@@ -63,22 +66,22 @@ function App() {
           "id": "209",
           "name" : "Minimum Size Subarray Sum",
           "url" : "https://leetcode.com/problems/minimum-size-subarray-sum/",
-          "completed" : 1,
-          "reviewAgain" : 0
+          "complete" : 1,
+          "review" : 0
         },
         "904" : {
           "id" : "904",
           "name" : "Fruit Into Baskets",
           "url" : "https://leetcode.com/problems/fruit-into-baskets/",
-          "completed" : 1,
-          "reviewAgain" : 1
+          "complete" : 1,
+          "review" : 1
         },
         "567" : {
           "id" : "567",
           "name" : "Permutation in String",
           "url" : "https://leetcode.com/problems/permutation-in-string/",
-          "completed" : 1,
-          "reviewAgain" : 0
+          "complete" : 1,
+          "review" : 0
         }
       }
     },
@@ -89,22 +92,22 @@ function App() {
           "id" : "79",
           "name" : "Word Search",
           "url" : "https://leetcode.com/problems/word-search/",
-          "completed" : 1,
-          "reviewAgain" : 0
+          "complete" : 1,
+          "review" : 0
         },
         "784" : {
           "id" : "784",
           "name" : "Letter Case Permutation",
           "url" : "https://leetcode.com/problems/letter-case-permutation/",
-          "completed" : 0,
-          "reviewAgain" : 0
+          "complete" : 0,
+          "review" : 0
         },
         "78" : {
           "id" : "78",
           "name" : "Subsets",
           "url" : "https://leetcode.com/problems/subsets/",
-          "completed" : 1,
-          "reviewAgain" : 1
+          "complete" : 1,
+          "review" : 1
         }
       }
     }
@@ -127,21 +130,20 @@ function App() {
       // function to select random new problems and problems to review
       const refreshProblems = () => {
         // iterate through all problems to find all
-        // which have the reviewAgain attribute of 1
+        // which have the review attribute of 1
         var toReview = [];
         var toDo = [];
         var totalQuestions = 0;
         for (const category of Object.values(categories)) {
           for (const question of Object.values(category.questions)) {
-            if (question.completed === 0) {
+            if (question.complete === 0) {
               toDo.push(question)
-            } else if (question.reviewAgain === 1) {
+            } else if (question.review === 1) {
               toReview.push(question)
             }
             totalQuestions++;
           }
         }
-        
         setReviewProblems(toReview);
         setProblemsToDo(toDo);
         toDo = toDo.sort(() => Math.random());
@@ -217,6 +219,7 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
     </div>
   );
 }
