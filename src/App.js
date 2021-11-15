@@ -3,6 +3,7 @@ import "./index.css";
 
 import ProgressIcon from "./Components/ProgressIcon";
 import Typography from "@mui/material/Typography";
+import questions from "./data/data.js";
 
 function App() {
   const [categories, setCategories] = useState({
@@ -108,11 +109,11 @@ function App() {
           </div >
             <div id="problems">
               <div>
-                <p>gfyrfgyrgfyrgyr</p>
+                <a href={questions[0]['url']}>{questions[0]['name']}</a> 
 
               </div>
               <div>
-              <p>gfyrfgyrgfyrgyr</p>
+                <a href={questions[1]['url']}>{questions[1]['name']}</a> 
               </div>
             </div>
         </div>
