@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import "./index.css";
-
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
-
+import questions from "./data/data.js";
 
 function App() {
   const questionData = {
@@ -218,8 +217,6 @@ function App() {
             </div>
           </div>
         </div>
-    </div>
-      
     </div>
   );
 }
