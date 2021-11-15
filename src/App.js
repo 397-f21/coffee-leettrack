@@ -3,6 +3,7 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import questions from "./data/data.js";
+import CompletedQuestion from "./Components/CompletedQuestionModal";
 
 function App() {
   const questionData = {
@@ -120,6 +121,7 @@ function App() {
   const [newProblems, setNewProblems] = useState([]);
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
+  const [open, setOpen] = useState(true);
 
   //function for set daily goal
   const handleDailyGoal =(event)=>{
@@ -160,6 +162,7 @@ function App() {
     <div className="App">
       <Typography variant="h3" > LeetTrack</Typography>
       <div className="content">
+       <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
         <div id="progress-icon-list">
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
           {Object.keys(categories).map((categoryName) => (
