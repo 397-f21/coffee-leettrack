@@ -35,20 +35,38 @@ code {
   gap: 10px;
   justify-content: flex-start;
 }
+.new-qestion {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
 .problem-list-header{
   display: flex;
-  gap: 70px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
 }
-
+a{
+  text-decoration: none;
+}
+a:link {
+  color: rgb(56, 98, 212);
+}
+a:visited {
+  color: rgb(168, 173, 168);
+}
 button{
-  background: linear-gradient(to bottom,  #4d941b 0%, #ada6a6 100%);
+  background: linear-gradient(to bottom,  #4d941b 0%, #dedede 100%);
   color: white;
   border-width:0px;
   border-radius: 10px;
   text-transform: uppercase;
   font-weight: 400;
-  width: 60px;
+  height: 40px;
+  width: 80px;
+  font-size: 16px;
 
 }
 
@@ -59,6 +77,7 @@ button{
   padding: 5px;
   color: white;
   font-weight: 400;
+  font-size: 16px;
 }
 
 .progressBar {

@@ -3,19 +3,18 @@ import "../index.css";
 
 export default function ProgressIcon({ name, category }) {
 
-  console.log(category.color);
   const grey = "#dedede";
   
   const calculateProgress = () => {
     const isComplete = (question) => question.completed === 1;
     const total = Object.keys(category.questions).length;
     var complete = 0;
-    for (const [id, question] of Object.entries(category.questions)) {
+    for (const question of Object.values(category.questions)) {
       if (isComplete(question)) {
         complete += 1
       }
     }
-    return Math.floor(complete/total*135);
+    return Math.floor(complete/total*180);
   }
 
   return (

@@ -1,100 +1,165 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
-
 import ProgressIcon from "./Components/ProgressIcon";
-import Typography from "@mui/material/Typography";
+import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import questions from "./data/data.js";
 
 function App() {
-  const [categories, setCategories] = useState({
+  const questionData = {
     "arrays": {
-      "color" : "#e8921a",
+      "color" : "#1fdbf0",
       "questions": {
-        "1" : {
-          "name" : "Container with Most Water",
-          "url" : "https://leetcode.com/problems/container-with-most-water",
+        "217" : {
+          "id" : "217",
+          "name" : "Contains Duplicate",
+          "url" : "https://leetcode.com/problems/contains-duplicate/",
           "completed" : 1
         },
-        "2" : {
-          "name" : "String to Integer",
-          "url" : "https://leetcode.com/problems/string-to-integer-atoi",
+        "268" : {
+          "id" : "268",
+          "name" : "Missing Number",
+          "url" : "https://leetcode.com/problems/missing-number/",
           "completed" : 0
         },
-        "3" : {
-          "name" : "3Sum",
-          "url" : "https://leetcode.com/problems/3sum",
+        "136" : {
+          "id" : "136",
+          "name" : "Single Number",
+          "url" : "https://leetcode.com/problems/single-number/",
           "completed" : 0
         }
       }
     },
     "two pointers": {
-      "color": "#3eacc2",
+      "color": "#0dd151",
       "questions": {
 
-        "1" : {
-          "name" : "Container with Most Water",
-          "url" : "https://leetcode.com/problems/container-with-most-water",
-          "completed" : 1
+        "141" : {
+          "id": "141",
+          "name" : "Linked List Cycle",
+          "url" : "https://leetcode.com/problems/linked-list-cycle/",
+          "completed" : 1,
+          "reviewAgain" : 0
         },
         "2" : {
-          "name" : "String to Integer",
-          "url" : "https://leetcode.com/problems/string-to-integer-atoi",
-          "completed" : 1
+          "id": "2",
+          "name" : "Add Two Numbers",
+          "url" : "https://leetcode.com/problems/add-two-numbers/",
+          "completed" : 1,
+          "reviewAgain" : 0
         },
-        "3" : {
-          "name" : "3Sum",
-          "url" : "https://leetcode.com/problems/3sum",
-          "completed" : 0
+        "148" : {
+          "id": "148",
+          "name" : "Sort List",
+          "url" : "https://leetcode.com/problems/sort-list/",
+          "completed" : 0,
+          "reviewAgain" : 0
         }
       }
     },
     "sliding window": {
-      "color" : "#09944c",
+      "color" : "#683af2",
       "questions" : {
-        "1" : {
-          "name" : "Container with Most Water",
-          "url" : "https://leetcode.com/problems/container-with-most-water",
-          "completed" : 1
+        "209" : {
+          "id": "209",
+          "name" : "Minimum Size Subarray Sum",
+          "url" : "https://leetcode.com/problems/minimum-size-subarray-sum/",
+          "completed" : 1,
+          "reviewAgain" : 0
         },
-        "2" : {
-          "name" : "String to Integer",
-          "url" : "https://leetcode.com/problems/string-to-integer-atoi",
-          "completed" : 1
+        "904" : {
+          "id" : "904",
+          "name" : "Fruit Into Baskets",
+          "url" : "https://leetcode.com/problems/fruit-into-baskets/",
+          "completed" : 1,
+          "reviewAgain" : 1
         },
-        "3" : {
-          "name" : "3Sum",
-          "url" : "https://leetcode.com/problems/3sum",
-          "completed" : 1
+        "567" : {
+          "id" : "567",
+          "name" : "Permutation in String",
+          "url" : "https://leetcode.com/problems/permutation-in-string/",
+          "completed" : 1,
+          "reviewAgain" : 0
         }
       }
     },
-    "bfs & dfs": {
-      "color" : "#b03a73",
+    "backtracking": {
+      "color" : "#ed2b99",
       "questions" : {
-        "1" : {
-          "name" : "Container with Most Water",
-          "url" : "https://leetcode.com/problems/container-with-most-water",
-          "completed" : 1
+        "79" : {
+          "id" : "79",
+          "name" : "Word Search",
+          "url" : "https://leetcode.com/problems/word-search/",
+          "completed" : 1,
+          "reviewAgain" : 0
         },
-        "2" : {
-          "name" : "String to Integer",
-          "url" : "https://leetcode.com/problems/string-to-integer-atoi",
-          "completed" : 0
+        "784" : {
+          "id" : "784",
+          "name" : "Letter Case Permutation",
+          "url" : "https://leetcode.com/problems/letter-case-permutation/",
+          "completed" : 0,
+          "reviewAgain" : 0
         },
-        "3" : {
-          "name" : "3Sum",
-          "url" : "https://leetcode.com/problems/3sum",
-          "completed" : 1
+        "78" : {
+          "id" : "78",
+          "name" : "Subsets",
+          "url" : "https://leetcode.com/problems/subsets/",
+          "completed" : 1,
+          "reviewAgain" : 1
         }
       }
     }
-  });
+  }
+
+
+  const [categories, setCategories] = useState(questionData);
+  const [dailyGoal, setDailyGoal] = useState(2);
+  const [problemsToDo, setProblemsToDo] = useState([]);
+  const [newProblems, setNewProblems] = useState([]);
+  const [reviewProblems, setReviewProblems] = useState([]);
+  const [percentComplete, setPercentComplete] = useState(0);
+
+  //function for set daily goal
+  const handleDailyGoal =(event)=>{
+    setDailyGoal(event.target.value);
+  }
+
+  useEffect(() => {
+      // function to select random new problems and problems to review
+      const refreshProblems = () => {
+        // iterate through all problems to find all
+        // which have the reviewAgain attribute of 1
+        var toReview = [];
+        var toDo = [];
+        var totalQuestions = 0;
+        for (const category of Object.values(categories)) {
+          for (const question of Object.values(category.questions)) {
+            if (question.completed === 0) {
+              toDo.push(question)
+            } else if (question.reviewAgain === 1) {
+              toReview.push(question)
+            }
+            totalQuestions++;
+          }
+        }
+        
+        setReviewProblems(toReview);
+        setProblemsToDo(toDo);
+        toDo = toDo.sort(() => Math.random());
+        // select dailyGoal random problems from the toDo list
+        setNewProblems(toDo.slice(0, dailyGoal));
+        setPercentComplete(Math.floor(toDo.length/totalQuestions*100));
+      }
+
+      refreshProblems();
+      
+  }, [categories, dailyGoal]);
+
   return (
     <div className="App">
       <Typography variant="h3" > LeetTrack</Typography>
       <div className="content">
         <div id="progress-icon-list">
-        <Typography variant="h5" > Overall Progress:65%</Typography>
+        <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
           {Object.keys(categories).map((categoryName) => (
             <ProgressIcon 
               key={categoryName} 
@@ -102,24 +167,56 @@ function App() {
               category={categories[categoryName]}/>
           ))}
         </div>
-        <div id="problems-list">
-          <div className="problem-list-header">
-            <Typography variant="h5" > Daily Goal: 2 problems</Typography>
-            <button>edit</button>
-          </div >
-            <div id="problems">
-              <div>
-                <a href={questions[0]['url']}>{questions[0]['name']}</a> 
-
-              </div>
-              <div>
-                <a href={questions[1]['url']}>{questions[1]['name']}</a> 
-              </div>
+        <div>
+          <div className="new-qestion">
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}> 
+              Problems to Try:
+            </Typography>
+            <div className="problem-list-header">
+              <Typography variant="h6" sx={{ fontWeight: 'medium' }}> 
+                Daily Goal:
+              </Typography>
+              <FormControl size={"small"} >
+                <Select
+                  value={dailyGoal}
+                  onChange={handleDailyGoal}
+                >
+                {problemsToDo.length === 0 ?
+                  <MenuItem value={dailyGoal}>{dailyGoal}</MenuItem> 
+                  : problemsToDo.map((problem, idx) => (
+                    <MenuItem 
+                      key={problem.id} 
+                      value={idx+1}>
+                        {idx+1}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Typography variant="h6" sx={{ fontWeight: 'medium' }}> 
+                problems
+              </Typography>
             </div>
+            <ol>
+              {newProblems.map((question) =>
+                <li key={question.id}>
+                  <a href={question.url}>{question.name}</a>
+                </li>
+              )}
+            </ol>
+          </div >
+          <div>
+            <div id="reviewProblems">
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Problems to Review:</Typography>
+              <ol>
+                {reviewProblems.map((question) =>
+                  <li key={question.id}>
+                    <a href={question.url}>{question.name}</a>
+                  </li>
+                )}
+              </ol>
+            </div>
+          </div>
         </div>
-  
-      </div>
-      
     </div>
   );
 }
