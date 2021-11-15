@@ -164,10 +164,16 @@ function App() {
               category={categories[categoryName]}/>
           ))}
         </div>
-        <div id="problems-list">
+        <div>
+          <div className="new-qestion">
+          <Typography variant="h5" sx={{ fontWeight: 'medium' }}> 
+           Recommended New Problems:
+          </Typography>
           <div className="problem-list-header">
-            <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Daily Goal:</Typography>
-              <FormControl fullWidth>
+            <Typography variant="h8" sx={{ fontWeight: 'bold' }}> 
+            Daily Goal:
+            </Typography>
+              <FormControl fullWidth size={"small"}>
                 <Select
                   value={dailyGoal}
                   onChange={handleDailyGoal}
@@ -183,8 +189,15 @@ function App() {
                     ))}
                 </Select>
               </FormControl>
+              </div>
+              <ol>
+                {newProblems.map((question) =>
+                  <li key={question.id}>
+                    <a href={question.url}>{question.name}</a>
+                  </li>
+                )}
+              </ol>
           </div >
-          <br/>
           <div>
             <div id="reviewProblems">
               <Typography variant="h5" sx={{ fontWeight: 'medium' }}> Problems to Review:</Typography>
@@ -196,20 +209,9 @@ function App() {
                 )}
               </ol>
             </div>
-            <div id="newProblems">
-              <Typography variant="h5" sx={{ fontWeight: 'medium' }}> Recommended New Problems:</Typography>
-              <ol>
-                {newProblems.map((question) =>
-                  <li key={question.id}>
-                    <a href={question.url}>{question.name}</a>
-                  </li>
-                )}
-              </ol>
-            </div>
           </div>
         </div>
-  
-      </div>
+    </div>
       
     </div>
   );

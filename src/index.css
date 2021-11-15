@@ -35,10 +35,16 @@ code {
   gap: 10px;
   justify-content: flex-start;
 }
+.new-qestion {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
 .problem-list-header{
   display: flex;
-  gap: 70px;
+  gap: 50px;
+  justify-content: center;
 }
 a{
   text-decoration: none;
