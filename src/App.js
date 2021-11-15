@@ -8,7 +8,7 @@ import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 function App() {
   const questionData = {
     "arrays": {
-      "color" : "#e8921a",
+      "color" : "#1fdbf0",
       "questions": {
         "217" : {
           "id" : "217",
@@ -31,7 +31,7 @@ function App() {
       }
     },
     "two pointers": {
-      "color": "#3eacc2",
+      "color": "#0dd151",
       "questions": {
 
         "141" : {
@@ -58,7 +58,7 @@ function App() {
       }
     },
     "sliding window": {
-      "color" : "#09944c",
+      "color" : "#683af2",
       "questions" : {
         "209" : {
           "id": "209",
@@ -84,7 +84,7 @@ function App() {
       }
     },
     "backtracking": {
-      "color" : "#b03a73",
+      "color" : "#ed2b99",
       "questions" : {
         "79" : {
           "id" : "79",
@@ -117,6 +117,7 @@ function App() {
   const [problemsToDo, setProblemsToDo] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
   const [reviewProblems, setReviewProblems] = useState([]);
+  const [percentComplete, setPercentComplete] = useState(0);
 
   //function for set daily goal
   const handleDailyGoal =(event)=>{
@@ -130,6 +131,7 @@ function App() {
         // which have the reviewAgain attribute of 1
         var toReview = [];
         var toDo = [];
+        var totalQuestions = 0;
         for (const category of Object.values(categories)) {
           for (const question of Object.values(category.questions)) {
             if (question.completed === 0) {
@@ -137,6 +139,7 @@ function App() {
             } else if (question.reviewAgain === 1) {
               toReview.push(question)
             }
+            totalQuestions++;
           }
         }
         
@@ -145,6 +148,7 @@ function App() {
         toDo = toDo.sort(() => Math.random());
         // select dailyGoal random problems from the toDo list
         setNewProblems(toDo.slice(0, dailyGoal));
+        setPercentComplete(Math.floor(toDo.length/totalQuestions*100));
       }
 
       refreshProblems();
@@ -156,7 +160,7 @@ function App() {
       <Typography variant="h3" > LeetTrack</Typography>
       <div className="content">
         <div id="progress-icon-list">
-        <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: 65%</Typography>
+        <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
           {Object.keys(categories).map((categoryName) => (
             <ProgressIcon 
               key={categoryName} 
@@ -166,41 +170,44 @@ function App() {
         </div>
         <div>
           <div className="new-qestion">
-          <Typography variant="h5" sx={{ fontWeight: 'medium' }}> 
-           Recommended New Problems:
-          </Typography>
-          <div className="problem-list-header">
-            <Typography variant="h8" sx={{ fontWeight: 'bold' }}> 
-            Daily Goal:
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}> 
+              Problems to Try:
             </Typography>
-              <FormControl fullWidth size={"small"}>
+            <div className="problem-list-header">
+              <Typography variant="h6" sx={{ fontWeight: 'medium' }}> 
+                Daily Goal:
+              </Typography>
+              <FormControl size={"small"} >
                 <Select
                   value={dailyGoal}
                   onChange={handleDailyGoal}
                 >
-                  {problemsToDo.length === 0 ?
-                  <MenuItem value={dailyGoal}>{dailyGoal}</MenuItem> :
-                    problemsToDo.map((problem, idx) => (
-                      <MenuItem 
-                        key={problem.id} 
-                        value={idx+1}>
-                          {idx+1}
-                      </MenuItem>
-                    ))}
+                {problemsToDo.length === 0 ?
+                  <MenuItem value={dailyGoal}>{dailyGoal}</MenuItem> 
+                  : problemsToDo.map((problem, idx) => (
+                    <MenuItem 
+                      key={problem.id} 
+                      value={idx+1}>
+                        {idx+1}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
-              </div>
-              <ol>
-                {newProblems.map((question) =>
-                  <li key={question.id}>
-                    <a href={question.url}>{question.name}</a>
-                  </li>
-                )}
-              </ol>
+              <Typography variant="h6" sx={{ fontWeight: 'medium' }}> 
+                problems
+              </Typography>
+            </div>
+            <ol>
+              {newProblems.map((question) =>
+                <li key={question.id}>
+                  <a href={question.url}>{question.name}</a>
+                </li>
+              )}
+            </ol>
           </div >
           <div>
             <div id="reviewProblems">
-              <Typography variant="h5" sx={{ fontWeight: 'medium' }}> Problems to Review:</Typography>
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Problems to Review:</Typography>
               <ol>
                 {reviewProblems.map((question) =>
                   <li key={question.id}>

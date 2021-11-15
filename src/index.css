@@ -43,8 +43,10 @@ code {
 
 .problem-list-header{
   display: flex;
-  gap: 50px;
-  justify-content: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
 }
 a{
   text-decoration: none;
