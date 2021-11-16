@@ -6,7 +6,7 @@ export default function ProgressIcon({ name, questions }) {
   const grey = "#dedede";
   
   const calculateProgress = () => {
-    const isComplete = (question) => question.completed === 1;
+    const isComplete = (question) => question.complete === 1;
     const total = questions.length;
     var complete = 0;
     for (const question of questions) {
