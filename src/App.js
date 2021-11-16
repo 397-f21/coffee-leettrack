@@ -2,120 +2,120 @@ import { useState, useEffect } from "react";
 import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
-import questions from "./data/data.js";
+import {patterns, questions as questionData} from "./data/data.js";
 import CompletedQuestion from "./Components/CompletedQuestionModal";
 
 function App() {
-  const questionData = {
-    "arrays": {
-      "color" : "#1fdbf0",
-      "questions": {
-        "217" : {
-          "id" : "217",
-          "name" : "Contains Duplicate",
-          "url" : "https://leetcode.com/problems/contains-duplicate/",
-          "complete" : 1,
-          "review" : 0
-        },
-        "268" : {
-          "id" : "268",
-          "name" : "Missing Number",
-          "url" : "https://leetcode.com/problems/missing-number/",
-          "complete" : 0,
-          "review" : 0
-        },
-        "136" : {
-          "id" : "136",
-          "name" : "Single Number",
-          "url" : "https://leetcode.com/problems/single-number/",
-          "complete" : 0,
-          "review" : 0
-        }
-      }
-    },
-    "two pointers": {
-      "color": "#0dd151",
-      "questions": {
+  // const questionData = {
+  //   "arrays": {
+  //     "color" : "#1fdbf0",
+  //     "questions": {
+  //       "217" : {
+  //         "id" : "217",
+  //         "name" : "Contains Duplicate",
+  //         "url" : "https://leetcode.com/problems/contains-duplicate/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       },
+  //       "268" : {
+  //         "id" : "268",
+  //         "name" : "Missing Number",
+  //         "url" : "https://leetcode.com/problems/missing-number/",
+  //         "complete" : 0,
+  //         "review" : 0
+  //       },
+  //       "136" : {
+  //         "id" : "136",
+  //         "name" : "Single Number",
+  //         "url" : "https://leetcode.com/problems/single-number/",
+  //         "complete" : 0,
+  //         "review" : 0
+  //       }
+  //     }
+  //   },
+  //   "two pointers": {
+  //     "color": "#0dd151",
+  //     "questions": {
 
-        "141" : {
-          "id": "141",
-          "name" : "Linked List Cycle",
-          "url" : "https://leetcode.com/problems/linked-list-cycle/",
-          "complete" : 1,
-          "review" : 0
-        },
-        "2" : {
-          "id": "2",
-          "name" : "Add Two Numbers",
-          "url" : "https://leetcode.com/problems/add-two-numbers/",
-          "complete" : 1,
-          "review" : 0
-        },
-        "148" : {
-          "id": "148",
-          "name" : "Sort List",
-          "url" : "https://leetcode.com/problems/sort-list/",
-          "complete" : 0,
-          "review" : 0
-        }
-      }
-    },
-    "sliding window": {
-      "color" : "#683af2",
-      "questions" : {
-        "209" : {
-          "id": "209",
-          "name" : "Minimum Size Subarray Sum",
-          "url" : "https://leetcode.com/problems/minimum-size-subarray-sum/",
-          "complete" : 1,
-          "review" : 0
-        },
-        "904" : {
-          "id" : "904",
-          "name" : "Fruit Into Baskets",
-          "url" : "https://leetcode.com/problems/fruit-into-baskets/",
-          "complete" : 1,
-          "review" : 1
-        },
-        "567" : {
-          "id" : "567",
-          "name" : "Permutation in String",
-          "url" : "https://leetcode.com/problems/permutation-in-string/",
-          "complete" : 1,
-          "review" : 0
-        }
-      }
-    },
-    "backtracking": {
-      "color" : "#ed2b99",
-      "questions" : {
-        "79" : {
-          "id" : "79",
-          "name" : "Word Search",
-          "url" : "https://leetcode.com/problems/word-search/",
-          "complete" : 1,
-          "review" : 0
-        },
-        "784" : {
-          "id" : "784",
-          "name" : "Letter Case Permutation",
-          "url" : "https://leetcode.com/problems/letter-case-permutation/",
-          "complete" : 0,
-          "review" : 0
-        },
-        "78" : {
-          "id" : "78",
-          "name" : "Subsets",
-          "url" : "https://leetcode.com/problems/subsets/",
-          "complete" : 1,
-          "review" : 1
-        }
-      }
-    }
-  }
+  //       "141" : {
+  //         "id": "141",
+  //         "name" : "Linked List Cycle",
+  //         "url" : "https://leetcode.com/problems/linked-list-cycle/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       },
+  //       "2" : {
+  //         "id": "2",
+  //         "name" : "Add Two Numbers",
+  //         "url" : "https://leetcode.com/problems/add-two-numbers/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       },
+  //       "148" : {
+  //         "id": "148",
+  //         "name" : "Sort List",
+  //         "url" : "https://leetcode.com/problems/sort-list/",
+  //         "complete" : 0,
+  //         "review" : 0
+  //       }
+  //     }
+  //   },
+  //   "sliding window": {
+  //     "color" : "#683af2",
+  //     "questions" : {
+  //       "209" : {
+  //         "id": "209",
+  //         "name" : "Minimum Size Subarray Sum",
+  //         "url" : "https://leetcode.com/problems/minimum-size-subarray-sum/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       },
+  //       "904" : {
+  //         "id" : "904",
+  //         "name" : "Fruit Into Baskets",
+  //         "url" : "https://leetcode.com/problems/fruit-into-baskets/",
+  //         "complete" : 1,
+  //         "review" : 1
+  //       },
+  //       "567" : {
+  //         "id" : "567",
+  //         "name" : "Permutation in String",
+  //         "url" : "https://leetcode.com/problems/permutation-in-string/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       }
+  //     }
+  //   },
+  //   "backtracking": {
+  //     "color" : "#ed2b99",
+  //     "questions" : {
+  //       "79" : {
+  //         "id" : "79",
+  //         "name" : "Word Search",
+  //         "url" : "https://leetcode.com/problems/word-search/",
+  //         "complete" : 1,
+  //         "review" : 0
+  //       },
+  //       "784" : {
+  //         "id" : "784",
+  //         "name" : "Letter Case Permutation",
+  //         "url" : "https://leetcode.com/problems/letter-case-permutation/",
+  //         "complete" : 0,
+  //         "review" : 0
+  //       },
+  //       "78" : {
+  //         "id" : "78",
+  //         "name" : "Subsets",
+  //         "url" : "https://leetcode.com/problems/subsets/",
+  //         "complete" : 1,
+  //         "review" : 1
+  //       }
+  //     }
+  //   }
+  // }
 
 
-  const [categories, setCategories] = useState(questionData);
+  const [questions, setQuestions] = useState(questionData);
   const [dailyGoal, setDailyGoal] = useState(2);
   const [problemsToDo, setProblemsToDo] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
@@ -154,7 +154,7 @@ function App() {
 
       refreshProblems();
       
-  }, [categories, dailyGoal]);
+  }, [questions, dailyGoal]);
 
   return (
     <div className="App">
@@ -163,11 +163,11 @@ function App() {
        <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
         <div id="progress-icon-list">
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
-          {Object.keys(categories).map((categoryName) => (
+          {patterns.map((categoryName) => (
             <ProgressIcon 
               key={categoryName} 
               name={categoryName}
-              category={categories[categoryName]}/>
+              questions={questions.filter(x=>x.pattern.includes(categoryName))}/>
           ))}
         </div>
         <div>
