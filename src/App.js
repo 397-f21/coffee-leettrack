@@ -3,6 +3,7 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import questions from "./data/data.js";
+import PatternTable from "./Components/PatternTable";
 
 function App() {
   const questionData = {
@@ -197,6 +198,9 @@ function App() {
               <Typography variant="h6" sx={{ fontWeight: 'medium' }}> 
                 problems
               </Typography>
+            </div>
+          <div>
+        <PatternTable pattern = {'Arrays'}/>
             </div>
             <ol>
               {newProblems.map((question) =>

@@ -55,21 +55,8 @@ a:link {
   color: rgb(56, 98, 212);
 }
 a:visited {
-  color: rgb(168, 173, 168);
+  color: rgb(56, 98, 212);
 }
-button{
-  background: linear-gradient(to bottom,  #4d941b 0%, #dedede 100%);
-  color: white;
-  border-width:0px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  font-weight: 400;
-  height: 40px;
-  width: 80px;
-  font-size: 16px;
-
-}
-
 
 .cardDescription {
   text-align: left;
