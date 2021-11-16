@@ -165,7 +165,7 @@ function App() {
        <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
         <div id="progress-icon-list">
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
-          {patterns.map((categoryName) => (
+          {Object.keys(patterns).map((categoryName) => (
             <ProgressIcon 
               key={categoryName} 
               name={categoryName}

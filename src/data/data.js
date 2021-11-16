@@ -1,26 +1,26 @@
-export const patterns = [
-  "Arrays",
-  "Bit Manipulation",
-  "Dynamic Programming",
-  "Fast & Slow Pointers",
-  "In-place reversal of a linked list",
-  "Two Pointers",
-  "Intervals",
-  "Binary Search",
-  "BFS",
-  "DFS",
-  "Trie",
-  "Sorting",
-  "Backtracking",
-  "Greedy",
-  "Graph",
-  "Union Find",
-  "Heap",
-  "Sliding Window",
-  "Topological Sort",
-  "Design",
-  "Bucket Sort"
-]
+export const patterns = {
+  "Arrays": {"color" : "#d98cb3"},
+  "Bit Manipulation":{"color": "#0dd151"},
+  "Dynamic Programming":{"color" : "#683af2"},
+  "Fast & Slow Pointers":{"color" : "#ed2b99"},
+  "In-place reversal of a linked list":{"color" :"#4dffff"},
+  "Two Pointers":{"color":"#ffb3ff"},
+  "Intervals":{"color":"#88ff4d"},
+  "Binary Search":{"color" :"#4dffa6"},
+  "BFS":{"color" :"#80bfff"},
+  "DFS":{"color" :"#d9b3ff"},
+  "Trie":{"color" :"#ffb3b3"},
+  "Sorting":{"color" :"#8080ff"},
+  "Backtracking":{"color":"#ffdf80"},
+  "Greedy":{"color" :"#1aa3ff"},
+  "Graph":{"color" :"#ddddbb"},
+  "Union Find":{"color" :"#99b3e6"},
+  "Heap":{"color" :"#ffff80"},
+  "Sliding Window":{"color" :"#cc80ff"},
+  "Topological Sort":{"color" :"#ff9999"},
+  "Design":{"color" :"#99ff99"},
+  "Bucket Sort":{"color" :"#ffaa80"}
+}
 
 export const questions = [
     {
