@@ -136,15 +136,13 @@ function App() {
         var toReview = [];
         var toDo = [];
         var totalQuestions = 0;
-        for (const category of Object.values(categories)) {
-          for (const question of Object.values(category.questions)) {
-            if (question.complete === 0) {
-              toDo.push(question)
-            } else if (question.review === 1) {
-              toReview.push(question)
-            }
-            totalQuestions++;
+        for (const question of questions) {
+          if (question.complete === 0) {
+            toDo.push(question)
+          } else if (question.review === 1) {
+            toReview.push(question)
           }
+          totalQuestions++;
         }
         setReviewProblems(toReview);
         setProblemsToDo(toDo);
