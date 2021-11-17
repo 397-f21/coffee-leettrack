@@ -36,16 +36,19 @@ code {
   justify-content: flex-start;
 }
 
+#progress-component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 480px;
+  overflow-y:auto;
+}
+
 #problems-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-content: flex-start;
-}
-
-#progress-component-list {
-  height: 515px;
-  overflow-y:auto;
 }
 
 .problem-list {
