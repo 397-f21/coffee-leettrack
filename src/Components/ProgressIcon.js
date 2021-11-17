@@ -18,7 +18,7 @@ export default function ProgressIcon({ name, questions, setPatternSelected }) {
         complete += 1
       }
     }
-    return Math.floor(complete/total*divWidth);
+    return Math.floor(complete/total*(divWidth - 20));
   }
   
   const changePattern = () => {
@@ -35,8 +35,11 @@ export default function ProgressIcon({ name, questions, setPatternSelected }) {
         <div className="cardDescription" variant="h6">
           {name}
         </div>
-        <div className="progressBar progressBarBack" style={{width: divWidth - 20}}></div>
-        <div className="progressBar progressBarFront" style={{width: calculateProgress()}}></div> 
+        <div className="progressBar progressBarBack" style={{width: divWidth - 20, zIndex: -1}}>
+          <div className="progressBar progressBarFront" style={{width: calculateProgress(), zIndex: 1, position: 'relative'}}></div>
+        </div>
+        
+        
 
       </div>
     </div>

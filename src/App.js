@@ -14,7 +14,7 @@ function App() {
   const [newProblems, setNewProblems] = useState([]);
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [patternSelected, setPatternSelected] = useState("Arrays");
 
   //function for set daily goal
@@ -43,7 +43,9 @@ function App() {
         toDo = toDo.sort(() => Math.random());
         // select dailyGoal random problems from the toDo list
         setNewProblems(toDo.slice(0, dailyGoal));
-        setPercentComplete(Math.floor(toDo.length/totalQuestions*100));
+        console.log(toDo.length);
+        console.log(totalQuestions);
+        setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
       }
 
       refreshProblems();
@@ -55,15 +57,17 @@ function App() {
       <div className="content">
        <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
         <div id="progress-column">
-          <Typography variant="h2" style={{ marginBottom: 25 }}>LeetTrack</Typography>
-          <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
-          {Object.keys(patterns).map((categoryName) => (
-            <ProgressIcon 
+          <Typography variant="h2" style={{ marginBottom: 15 }}>LeetTrack</Typography>
+          <Typography variant="h5"> Overall Progress: {percentComplete}%</Typography>
+          <div id="progress-component-list">
+            {Object.keys(patterns).map((categoryName) => (
+              <ProgressIcon 
               key={categoryName} 
               name={categoryName}
               questions={questions.filter(x=>x.pattern.includes(categoryName))}
               setPatternSelected={setPatternSelected}/>
-          ))}
+              ))}
+          </div>
         </div>
         <div id="problems-column">
           <div id="new-and-review">
@@ -92,7 +96,7 @@ function App() {
                   new problems
                 </Typography>
               </div>
-              <ol>
+              <ol className="problem-list">
                 {newProblems.map((question) =>
                   <li key={question.id}>
                     <a href={question.url}>{question.name}</a>
@@ -102,9 +106,9 @@ function App() {
             </div >
             <div id="review-questions" className="card questionCard">
               <div className="question-list-header">
-                <Typography variant="h6"> Problems up for review:</Typography>
+                <Typography variant="h6" style={{paddingTop: 5}}> Problems up for review:</Typography>
               </div>
-              <ol>
+              <ol className="problem-list">
                 {reviewProblems.map((question) =>
                   <li key={question.id}>
                     <a href={question.url}>{question.name}</a>
@@ -114,7 +118,7 @@ function App() {
             </div>
           </div>
           <div className="card tableCard">
-            <Typography variant="h5">{patternSelected}</Typography>
+            <Typography variant="h5">All <b>{patternSelected.toLowerCase()}</b> problems</Typography>
             <PatternTable pattern = {patternSelected}/>
           </div>
         </div>

@@ -43,6 +43,17 @@ code {
   justify-content: flex-start;
 }
 
+#progress-component-list {
+  height: 515px;
+  overflow-y:auto;
+}
+
+.problem-list {
+  margin-top: 5px;
+  height: 55px;
+  overflow-y:auto;
+}
+
 #new-and-review {
   display: flex;
   flex-direction: row;
@@ -71,16 +82,6 @@ code {
   font-weight: 300;
 }
 
-.tableCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  background-color: #f5f5f5;
-  height: 500px;
-  width: 660px;
-}
 a{
   text-decoration: none;
 }
@@ -89,6 +90,29 @@ a:link {
 }
 a:visited {
   color: rgb(56, 98, 212);
+}
+
+.progressBar {
+  border-radius: 25px;
+  margin-top: 5px;
+  height: 10px;
+  /* position: absolute; */
+}
+
+.progressBarFront {
+  background-color:black;
+}
+
+.progressBarBack {
+  margin-left: 10px;
+  background-color: white;
+  width: 180px;
+}
+
+.card{
+  border-radius: 15px;
+  padding: 4px;
+  margin: 2px;
 }
 
 .cardDescription {
@@ -101,31 +125,21 @@ a:visited {
   font-size: 16px;
 }
 
-.progressBar {
-  border-radius: 25px;
-  margin-top: 5px;
-  margin-left: 10px;
-  height: 10px;
-  position: absolute;
-}
-
-.progressBarFront {
-  background-color:black;
-}
-
-.progressBarBack {
-  background-color: white;
-  width: 180px;
-}
-
-.card{
-  border-radius: 15px;
-  padding: 4px;
-  margin: 2px;
-}
 .progressCard{
   height: 60px;
 }
+
 .progressCard:hover{
-  opacity: 0.85;
+  opacity: 0.75;
+}
+
+.tableCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background-color: #f5f5f5;
+  height: 460px;
+  width: 660px;
 }
