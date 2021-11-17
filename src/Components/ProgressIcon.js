@@ -3,10 +3,11 @@ import "../index.css";
 import {patterns} from "../data/data.js";
 
 
-export default function ProgressIcon({ name, questions }) {
+export default function ProgressIcon({ name, questions, setPatternSelected }) {
   
+  const divWidth = 300;
   const color=Object.values(patterns[name]);
-  const color1="#f2f2f2";
+  const color1="#8f8f8f";
   
   const calculateProgress = () => {
     const isComplete = (question) => question.complete === 1;
@@ -17,17 +18,24 @@ export default function ProgressIcon({ name, questions }) {
         complete += 1
       }
     }
-    return Math.floor(complete/total*180);
+    return Math.floor(complete/total*divWidth);
+  }
+  
+  const changePattern = () => {
+    // console.log(name);
+    setPatternSelected(name);
   }
 
   return (
     <div>
-      <div className="card" style={{background: `linear-gradient(to bottom,  ${color} 0%,${color1} 100%)`}}>
-      {/* <div className="card" style={{backgroundColor: category.color}}> */}
+      <div className="card progressCard" 
+            style={{background: `linear-gradient(to bottom,  ${color} 0%,${color1} 100%)`, width: divWidth}}
+            onClick={changePattern}>
+      {/* <div className="card" style={{backgroundColor: color}}> */}
         <div className="cardDescription" variant="h6">
           {name}
         </div>
-        <div className="progressBar progressBarBack"></div>
+        <div className="progressBar progressBarBack" style={{width: divWidth - 20}}></div>
         <div className="progressBar progressBarFront" style={{width: calculateProgress()}}></div> 
 
       </div>

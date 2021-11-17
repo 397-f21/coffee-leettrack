@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import {questions} from '../data/data';
 import "./PatternTable.css";
 import ControlledCheckbox from './ControlledCheckbox';
+import Container from '@mui/material/Container';
 
 
 
@@ -38,20 +39,20 @@ const PatternTable = (pattern) => {
   
   ];
 
-  console.log(pattern);
-  console.log(questions);
+  // console.log(pattern);
+  // console.log(questions);
   const rows = questions.filter(question => question['pattern'].includes(pattern.pattern));
                         // .forEach(question => question['name'] = nameLink(question));
-    console.log(rows);
+    // console.log(rows);
     return (
-      <div className='PatternTable'>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5,10,20]}
-        />
-      </div>
+        <div className='PatternTable' style={{width: 620, height: 425 }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[5,10,20]}
+            />
+        </div>
     );
 }
 
