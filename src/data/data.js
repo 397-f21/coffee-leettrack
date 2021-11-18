@@ -25,11 +25,11 @@
 export const patterns = {
   "Arrays": {"color" : "#d281f7"},
   "Bit Manipulation":{"color": "#83e69b"},
-  "Dynamic Programming":{"color" : "#f79e3e"},
+  "Dynamic Programming":{"color" : "#fae452"},
   "Fast & Slow Pointers":{"color" : "#717fe3"},
   "In-place linked list reversal":{"color" :"#60c9f0"},
   "Two Pointers":{"color":"#ffb3ff"},
-  "Intervals":{"color":"#fae452"},
+  "Intervals":{"color":"#ffbf47"},
   "Binary Search":{"color" :"#4dffa6"},
   "BFS":{"color" :"#80bfff"},
   "DFS":{"color" :"#d9b3ff"},
