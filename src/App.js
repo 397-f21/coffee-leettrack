@@ -158,11 +158,15 @@ function App() {
       
   }, [categories, dailyGoal]);
 
+  function updateProblemData(notes, review, id){
+
+  }
+
   return (
     <div className="App">
       <Typography variant="h3" > LeetTrack</Typography>
       <div className="content">
-       <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
+       <CompletedQuestion open={open} setOpen={setOpen} updateProblemData={updateProblemData} id={0} />
         <div id="progress-icon-list">
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}> Overall Progress: {percentComplete}%</Typography>
           {Object.keys(categories).map((categoryName) => (

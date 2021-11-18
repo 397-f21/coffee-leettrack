@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Checkbox from "@mui/material/Checkbox";
 
 
-export default function CompletedQuestion({ open, setOpen, problemID }) {
+export default function CompletedQuestion({ open, setOpen, updateProblemData, id }) {
     const [notes, setNotes] = useState('');
     const [review, setReview] = useState(false)
     const [hasError, setHasError] = useState(false);
@@ -29,12 +29,7 @@ export default function CompletedQuestion({ open, setOpen, problemID }) {
     };
 
     const updateProblem = async () => {
-        try {
-            //await updateData(`/problems/` + problemID + '/notes', notes);
-            //await updateData(`/problems/` + problemID + '/review', 1);
-        } catch (error) {
-            alert(error);
-        }
+        updateProblemData(notes, review, id);
         handleClose();
     };
 
