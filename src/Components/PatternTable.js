@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import {questions} from '../data/data';
 import "./PatternTable.css";
 import ControlledCheckbox from './ControlledCheckbox';
+import { patterns, questions } from '../data/data';
 
 
-
-const checkBoxFormater = (solved) => {
+const checkBoxFormater = (pattern, id) => {
   return (
-    <ControlledCheckbox isChecked={solved === 1}/>
+    <ControlledCheckbox pattern={pattern.pattern} id={id}/>
   );
 }
 
@@ -22,9 +21,9 @@ const urlFormater = (name) => {
 
 const PatternTable = (pattern) => {
   const columns = [
-    { field: 'complete', headerName: 'Completed', width: 100 ,
+    { field: 'id', headerName: 'Completed', width: 100 ,
     renderCell: (params) => {
-      return checkBoxFormater(params.value);
+      return checkBoxFormater(pattern, params.value);
     },},
     { field: 'name', headerName: 'Problem', width: 330, 
     renderCell: (params) => {
@@ -36,12 +35,8 @@ const PatternTable = (pattern) => {
   
   ];
 
-  // console.log(pattern);
-  // console.log(questions);
-  const rows = questions.filter(question => question['pattern'].includes(pattern.pattern));
-                        // .forEach(question => question['name'] = nameLink(question));
-    // console.log(rows);
-    return (
+  const rows = JSON.parse(window.localStorage.getItem(`${pattern.pattern}`));
+  return (
         <div className='PatternTable' style={{width: 620, height: 370 }}>
           <DataGrid
             rows={rows}

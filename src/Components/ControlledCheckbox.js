@@ -1,12 +1,22 @@
 import * as React from "react";
 import Checkbox from "@mui/material/Checkbox";
+import { questions } from "../data/data";
 
 
-export default function ControlledCheckbox({ isChecked }) {
-  const [checked, setChecked] = React.useState(isChecked);
+export default function ControlledCheckbox({ pattern, id }) {
+  let table = JSON.parse(window.localStorage.getItem(`${pattern}`)).filter(question => question['pattern'].includes(pattern));
+  
+  const checked = table.filter(entry => entry['id'] === id)[0]['complete'];
 
   const handleChange = async (event) => {    
-    setChecked(event.target.checked);
+    for (let i = 0; i < table.length; i++)
+    {
+      if (table[i]['id'] === id)
+      {
+        table[i]['complete'] = !table[i]['complete'];
+      }
+    }
+    window.localStorage.setItem([`${pattern}`], JSON.stringify(table));
   };
 
   
@@ -14,7 +24,7 @@ export default function ControlledCheckbox({ isChecked }) {
   return (
     <Checkbox
       data-testid= "checkbox"
-      checked={checked}
+      checked={Boolean(checked)}
       onChange={handleChange}
       inputProps={{ "aria-label": "controlled" }}
     />

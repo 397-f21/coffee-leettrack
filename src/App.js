@@ -22,6 +22,15 @@ function App() {
     setDailyGoal(event.target.value);
   }
 
+  for (const key in patterns){
+    console.log(key);
+    if (typeof window.localStorage[`${key}`] === "undefined")
+    {
+      const table = questions.filter(question => question['pattern'].includes(key));
+      window.localStorage.setItem(`${key}`, JSON.stringify(table));
+    }
+  }
+
   useEffect(() => {
       // function to select random new problems and problems to review
       const refreshProblems = () => {
