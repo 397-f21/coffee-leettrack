@@ -39,7 +39,7 @@ const PatternTable = ({pattern, setQuestions}) => {
     let prAdress = name.split(' ').join('-');
     let url = `https://www.leetcode.com/problems/${prAdress.toLowerCase()}/`
     return (
-      <a href={url}> {name} </a>
+      <a href={url}  target="_blank"> {name} </a>
     );
   };
 

@@ -108,7 +108,7 @@ function App() {
               <ol className="problem-list">
                 {newProblems.map((question) =>
                   <li key={question.id}>
-                    <a href={question.url}>{question.name}</a>
+                    <a href={question.url}  target="_blank">{question.name}</a>
                   </li>
                 )}
               </ol>
@@ -120,7 +120,7 @@ function App() {
               <ol className="problem-list">
                 {reviewProblems.map((question) =>
                   <li key={question.id}>
-                    <a href={question.url}>{question.name}</a>
+                    <a href={question.url} target="_blank">{question.name}</a>
                   </li>
                 )}
               </ol>
