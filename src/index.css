@@ -146,3 +146,9 @@ a:visited {
   height: 460px;
   width: 660px;
 }
+
+.dialog-checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -5,13 +5,11 @@ import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-//import { updateData } from "../Utilities/firebase";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 
-export default function CompletedQuestion({ open, setOpen, problemID }) {
+export default function CompletedQuestionModal({ open, setOpen, problemID, setQuestions }) {
     const [notes, setNotes] = useState('');
     const [review, setReview] = useState(false)
     const [hasError, setHasError] = useState(false);
@@ -28,14 +26,33 @@ export default function CompletedQuestion({ open, setOpen, problemID }) {
         setNotes(newDescription)
     };
 
-    const updateProblem = async () => {
-        try {
-            //await updateData(`/problems/` + problemID + '/notes', notes);
-            //await updateData(`/problems/` + problemID + '/review', 1);
-        } catch (error) {
-            alert(error);
+    const validate = () => {
+        if (notes === "") {
+          setHasError(true);
+          return false;
+        } else {
+          setHasError(false);
+          return true;
         }
-        handleClose();
+      };
+
+    const updateProblem = async () => {
+        if (validate()) {
+            setQuestions((prevQuestions) => (
+                [
+                    ...prevQuestions.slice(0,problemID),
+                    {
+                        ...prevQuestions[problemID],
+                        complete: 1,
+                        comment: notes,
+                        review: +review
+                    },
+                    ...prevQuestions.slice(problemID+1)
+                ]
+            ));
+            handleClose();
+        }
+        
     };
 
     const handleChange = async (event) => {
@@ -48,6 +65,7 @@ export default function CompletedQuestion({ open, setOpen, problemID }) {
             <DialogContent>
                 <div id="newTaskForm">
                     <TextField
+                        fullWidth
                         autoFocus
                         inputProps={{ "data-testid": "description" }}
                         value={notes}
@@ -58,16 +76,13 @@ export default function CompletedQuestion({ open, setOpen, problemID }) {
                         error={hasError}
                         helperText={hasError ? "Enter problem notes" : ""}
                     />
-                    <div id="selects">
-                        <FormControl fullWidth>
-                            <InputLabel>Needs review?</InputLabel>
-                            <Checkbox
-                                data-testid="checkbox"
-                                checked={review}
-                                onChange={handleChange}
-                                inputProps={{ "aria-label": "controlled" }}
-                            />
-                        </FormControl>
+                    <div>
+                        <FormControlLabel 
+                            control={<Checkbox data-testid="checkbox"
+                                                checked={review}
+                                                onChange={handleChange}
+                                                inputProps={{ "aria-label": "controlled" }}/>} 
+                            label="I should review this problem again" />
                     </div>
                 </div>
             </DialogContent>

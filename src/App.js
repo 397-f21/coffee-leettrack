@@ -3,18 +3,18 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import PatternTable from "./Components/PatternTable";
-import {patterns, questions} from "./data/data.js";
-import CompletedQuestion from "./Components/CompletedQuestionModal";
+import {patterns, questionData} from "./data/data.js";
+
 
 function App() {
 
-  // const [questions, setQuestions] = useState(questionData);
+  const [questions, setQuestions] = useState(questionData);
   const [dailyGoal, setDailyGoal] = useState(2);
   const [problemsToDo, setProblemsToDo] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
-  const [open, setOpen] = useState(false);
+  
   const [patternSelected, setPatternSelected] = useState("Arrays");
 
   //function for set daily goal
@@ -23,7 +23,7 @@ function App() {
   }
 
   for (const key in patterns){
-    console.log(key);
+    // console.log(key);
     if (typeof window.localStorage[`${key}`] === "undefined")
     {
       const table = questions.filter(question => question['pattern'].includes(key));
@@ -52,19 +52,19 @@ function App() {
         toDo = toDo.sort(() => Math.random());
         // select dailyGoal random problems from the toDo list
         setNewProblems(toDo.slice(0, dailyGoal));
-        console.log(toDo.length);
-        console.log(totalQuestions);
+        // console.log(toDo.length);
+        // console.log(totalQuestions);
         setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
       }
 
       refreshProblems();
+      console.log(questions[0]);
       
-  }, [dailyGoal]);
+  }, [dailyGoal, questions]);
 
   return (
     <div className="App">
       <div className="content">
-       <CompletedQuestion open={open} setOpen={setOpen} problemID={0} />
         <div id="progress-column">
           <Typography variant="h2" style={{ marginBottom: 15 }}>LeetTrack</Typography>
           <Typography variant="h5"> Overall Progress: {percentComplete}%</Typography>
@@ -128,7 +128,7 @@ function App() {
           </div>
           <div className="card tableCard">
             <Typography variant="h5">All <b>{patternSelected.toLowerCase()}</b> problems</Typography>
-            <PatternTable pattern = {patternSelected}/>
+            <PatternTable pattern={patternSelected} setQuestions={setQuestions}/>
           </div>
         </div>
       </div>
