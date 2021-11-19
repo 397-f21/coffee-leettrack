@@ -4,29 +4,18 @@ import CompletedQuestionModal from "./CompletedQuestionModal";
 
 
 export default function ControlledCheckbox({ pattern, id, setQuestions }) {
-  let table = JSON.parse(window.localStorage.getItem(`questions`));
   
-  const checked = table.filter(entry => entry['id'] === id)[0]['complete'];
+  let question = JSON.parse(window.localStorage.getItem(`questions`))[id];
+  const checked = question.complete;
   
   const [open, setOpen] = useState(false);
 
   const handleChange = async (event) => {
-    let newVal = 0;
-    for (let i = 0; i < table.length; i++)
-    {
-      if (table[i]['id'] === id)
-      {
-        // table[i]['complete'] = !table[i]['complete'];
-        newVal = + !table[i]['complete']
-      }
-    }
-    if (newVal === 1) {
+    const newChecked = + !checked
+    if (newChecked === 1) {
       setOpen(true);
     }
-    // window.localStorage.setItem([`${pattern}`], JSON.stringify(table));
   };
-
-  
 
   return (
     <div>

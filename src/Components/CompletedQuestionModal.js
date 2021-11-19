@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
+import { useLocalStorage } from "./utilities/useLocalStorage";
 
 export default function CompletedQuestionModal({ open, setOpen, problemID, setQuestions }) {
     const [notes, setNotes] = useState('');
@@ -37,17 +37,17 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, setQu
       };
 
     const updateProblem = async () => {
-        let table = JSON.parse(window.localStorage.getItem(`questions`));
-        console.log(table[problemID]);
+        let question = JSON.parse(window.localStorage.getItem(`questions`))[problemID];
+        let questions = JSON.parse(window.localStorage.getItem(`questions`));
+        
         if (validate()) {
-            for (let i = 0; i < table.length; i++){
-                if (table[i]['id'] === problemID){
-                    table[i]['complete'] = !table[i]['complete'];
-                    table[i]['comment'] = notes;
-                    table[i]['review'] = +review;
-                }
-            }
-            window.localStorage.setItem('questions', JSON.stringify(table));
+            question.complete = !question.complete;
+            question.comment = notes;
+            question.review = +review;
+            questions[problemID] = question;
+            // useLocalStorage(questions, "");
+            window.localStorage.setItem(`questions`, JSON.stringify(questions));
+            console.log(JSON.parse(window.localStorage.getItem(`questions`))[problemID]);
             // setQuestions((prevQuestions) => (
             //     [
             //         ...prevQuestions.slice(0,problemID),

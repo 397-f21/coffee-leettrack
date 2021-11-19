@@ -23,8 +23,8 @@ const PatternTable = ({pattern,setQuestions}) => {
     { field: 'comment', headerName: 'Comment', width: 400 },
   ];
 
-  let rows = JSON.parse(window.localStorage.getItem('questions')).filter(question => question['pattern'].includes(pattern));
-  // console.log(rows);
+  let rows = Object.values(JSON.parse(window.localStorage.getItem('questions'))).filter(question => question['pattern'].includes(pattern));
+  // console.table(rows);
   const checkBoxFormater = (id) => {
     return (
       <ControlledCheckbox 

@@ -3,12 +3,12 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import PatternTable from "./Components/PatternTable";
-import {patterns, questionData} from "./data/data.js";
+import {patterns, questionList, questionData} from "./data/data.js";
 
 
 function App() {
 
-  const [questions, setQuestions] = useState(questionData);
+  const [questions, setQuestions] = useState(questionList);
   const [dailyGoal, setDailyGoal] = useState(2);
   const [problemsToDo, setProblemsToDo] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
@@ -21,14 +21,14 @@ function App() {
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
   }
-    // console.log(key);
-    if (typeof window.localStorage['questions'] === 'undefined'){
-      window.localStorage.setItem('questions',JSON.stringify(questionData));
-    }
 
-    if (typeof window.localStorage['progress'] === 'undefined'){
-      window.localStorage.setItem('progress',JSON.stringify(0));
-    }
+  // if (typeof window.localStorage['questions'] === 'undefined'){
+  window.localStorage.setItem('questions', JSON.stringify(questionData));
+  // }
+
+  if (typeof window.localStorage['progress'] === 'undefined'){
+    window.localStorage.setItem('progress',JSON.stringify(0));
+  }
   
 
   useEffect(() => {
