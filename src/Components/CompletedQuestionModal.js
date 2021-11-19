@@ -42,7 +42,7 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, setQu
         
         if (validate()) {
             question.complete = !question.complete;
-            question.comment = notes;
+            question.comment['notes'] = notes;
             question.review = +review;
             questions[problemID] = question;
             // useLocalStorage(questions, "");

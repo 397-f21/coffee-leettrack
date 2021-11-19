@@ -22,9 +22,9 @@ function App() {
     setDailyGoal(event.target.value);
   }
 
-  // if (typeof window.localStorage['questions'] === 'undefined'){
-  window.localStorage.setItem('questions', JSON.stringify(questionData));
-  // }
+  if (typeof window.localStorage['questions'] === 'undefined'){
+    window.localStorage.setItem('questions', JSON.stringify(questionData));
+  }
 
   if (typeof window.localStorage['progress'] === 'undefined'){
     window.localStorage.setItem('progress',JSON.stringify(0));

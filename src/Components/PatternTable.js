@@ -6,7 +6,7 @@ import ControlledCheckbox from './ControlledCheckbox';
 
 
 
-const PatternTable = ({pattern,setQuestions}) => {
+const PatternTable = ({pattern, setQuestions}) => {
   // console.log(`typeof(setQuestions): ${typeof(setQuestions)}`);
 
   const columns = [
@@ -20,7 +20,9 @@ const PatternTable = ({pattern,setQuestions}) => {
     },
   },
     { field: 'difficulty', headerName: 'Difficulty',width:100},
-    { field: 'id', headerName: 'Comment', width: 400,
+    
+    
+    { field: 'comment', headerName: 'Comment', width: 400,
     renderCell: (params) => {
       return commentFormater(params.value);
     },},
@@ -37,9 +39,9 @@ const PatternTable = ({pattern,setQuestions}) => {
     );
   }
 
-  const commentFormater = (id) => {
+  const commentFormater = (commentObj) => {
     return (
-      <div>{}</div>
+      <div>{commentObj.notes}</div>
     );
   }
   
