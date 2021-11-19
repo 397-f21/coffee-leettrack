@@ -7,7 +7,7 @@ export default function ProgressIcon({ name, questions, setPatternSelected }) {
   
   const divWidth = 300;
   const color=Object.values(patterns[name]);
-  const color1="#8f8f8f";
+  const color1="#c7c7c5";
   
   const calculateProgress = () => {
     const isComplete = (question) => question.complete === 1;
