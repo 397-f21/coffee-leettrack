@@ -21,16 +21,15 @@ function App() {
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
   }
-
-  for (let i = 0; i< questionData.length; i++){
     // console.log(key);
-    let key = i;
-    if (typeof window.localStorage[`${key}`] === "undefined")
-    {
-      const table = questionData[i];
-      window.localStorage.setItem(`${key}`, JSON.stringify(table));
+    if (typeof window.localStorage['questions'] === 'undefined'){
+      window.localStorage.setItem('questions',JSON.stringify(questionData));
     }
-  }
+
+    if (typeof window.localStorage['progress'] === 'undefined'){
+      window.localStorage.setItem('progress',JSON.stringify(0));
+    }
+  
 
   useEffect(() => {
       // function to select random new problems and problems to review

@@ -6,13 +6,13 @@ import ControlledCheckbox from './ControlledCheckbox';
 
 
 
-const PatternTable = ({pattern, setQuestions}) => {
+const PatternTable = ({pattern,setQuestions}) => {
   // console.log(`typeof(setQuestions): ${typeof(setQuestions)}`);
 
   const columns = [
     { field: 'id', headerName: 'Completed', width: 100 ,
     renderCell: (params) => {
-      return checkBoxFormater(pattern, params.value);
+      return checkBoxFormater(params.value);
     },},
     { field: 'name', headerName: 'Problem', width: 330, 
     renderCell: (params) => {
@@ -23,12 +23,11 @@ const PatternTable = ({pattern, setQuestions}) => {
     { field: 'comment', headerName: 'Comment', width: 400 },
   ];
 
-  const rows = JSON.parse(window.localStorage.getItem(`${pattern}`));
-
-  const checkBoxFormater = (pattern, id) => {
+  let rows = JSON.parse(window.localStorage.getItem('questions')).filter(question => question['pattern'].includes(pattern));
+  // console.log(rows);
+  const checkBoxFormater = (id) => {
     return (
       <ControlledCheckbox 
-        pattern={pattern} 
         id={id} 
         setQuestions={setQuestions}
       />

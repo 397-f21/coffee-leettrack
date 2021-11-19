@@ -37,19 +37,29 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, setQu
       };
 
     const updateProblem = async () => {
+        let table = JSON.parse(window.localStorage.getItem(`questions`));
+        console.log(table[problemID]);
         if (validate()) {
-            setQuestions((prevQuestions) => (
-                [
-                    ...prevQuestions.slice(0,problemID),
-                    {
-                        ...prevQuestions[problemID],
-                        complete: 1,
-                        comment: notes,
-                        review: +review
-                    },
-                    ...prevQuestions.slice(problemID+1)
-                ]
-            ));
+            for (let i = 0; i < table.length; i++){
+                if (table[i]['id'] === problemID){
+                    table[i]['complete'] = !table[i]['complete'];
+                    table[i]['comment'] = notes;
+                    table[i]['review'] = +review;
+                }
+            }
+            window.localStorage.setItem('questions', JSON.stringify(table));
+            // setQuestions((prevQuestions) => (
+            //     [
+            //         ...prevQuestions.slice(0,problemID),
+            //         {
+            //             ...prevQuestions[problemID],
+            //             complete: 1,
+            //             comment: notes,
+            //             review: +review
+            //         },
+            //         ...prevQuestions.slice(problemID+1)
+            //     ]
+            // ));
             handleClose();
         }
         
