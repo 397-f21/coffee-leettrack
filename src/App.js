@@ -22,11 +22,12 @@ function App() {
     setDailyGoal(event.target.value);
   }
 
-  for (const key in patterns){
+  for (let i = 0; i< questionData.length; i++){
     // console.log(key);
+    let key = i;
     if (typeof window.localStorage[`${key}`] === "undefined")
     {
-      const table = questions.filter(question => question['pattern'].includes(key));
+      const table = questionData[i];
       window.localStorage.setItem(`${key}`, JSON.stringify(table));
     }
   }
