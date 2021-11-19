@@ -20,7 +20,10 @@ const PatternTable = ({pattern,setQuestions}) => {
     },
   },
     { field: 'difficulty', headerName: 'Difficulty',width:100},
-    { field: 'comment', headerName: 'Comment', width: 400 },
+    { field: 'id', headerName: 'Comment', width: 400,
+    renderCell: (params) => {
+      return commentFormater(params.value);
+    },},
   ];
 
   let rows = Object.values(JSON.parse(window.localStorage.getItem('questions'))).filter(question => question['pattern'].includes(pattern));
@@ -31,6 +34,12 @@ const PatternTable = ({pattern,setQuestions}) => {
         id={id} 
         setQuestions={setQuestions}
       />
+    );
+  }
+
+  const commentFormater = (id) => {
+    return (
+      <div>{}</div>
     );
   }
   
