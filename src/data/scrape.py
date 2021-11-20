@@ -64,8 +64,10 @@ for prob in allProbs:
     count += 1
 
     #Only loads first 10 problems
-    if count > 10:
-        break
+    #if count > 100:
+    #    break
 
+with open('dataNew.txt', 'w') as outfile:
+    json.dump(probData, outfile)
 print(probData)
 
