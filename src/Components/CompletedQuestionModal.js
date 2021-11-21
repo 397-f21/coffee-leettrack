@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
+import { useLocalStorage } from "./utilities/useLocalStorage";
 
 export default function CompletedQuestionModal({ open, setOpen, problemID, setQuestions }) {
     const [notes, setNotes] = useState('');
@@ -37,19 +37,31 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, setQu
       };
 
     const updateProblem = async () => {
+        let questions = JSON.parse(window.localStorage.getItem(`questions`));
+        let question = questions[problemID]
+        
         if (validate()) {
-            setQuestions((prevQuestions) => (
-                [
-                    ...prevQuestions.slice(0,problemID),
-                    {
-                        ...prevQuestions[problemID],
-                        complete: 1,
-                        comment: notes,
-                        review: +review
-                    },
-                    ...prevQuestions.slice(problemID+1)
-                ]
-            ));
+            console.log("we here")
+            console.log(question.complete)
+            //question.complete = !question.complete;
+            question.comment['notes'] = notes;
+            question.review = +review;
+            questions[problemID] = question;
+            // useLocalStorage(questions, "");
+            window.localStorage.setItem(`questions`, JSON.stringify(questions));
+            console.log(JSON.parse(window.localStorage.getItem(`questions`))[problemID]);
+            // setQuestions((prevQuestions) => (
+            //     [
+            //         ...prevQuestions.slice(0,problemID),
+            //         {
+            //             ...prevQuestions[problemID],
+            //             complete: 1,
+            //             comment: notes,
+            //             review: +review
+            //         },
+            //         ...prevQuestions.slice(problemID+1)
+            //     ]
+            // ));
             handleClose();
         }
         

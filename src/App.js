@@ -3,12 +3,12 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography, MenuItem, FormControl, Select } from "@mui/material";
 import PatternTable from "./Components/PatternTable";
-import {patterns, questionData} from "./data/data.js";
+import {patterns, questionList, questionData} from "./data/data.js";
 
 
 function App() {
 
-  const [questions, setQuestions] = useState(questionData);
+  const [questions, setQuestions] = useState(questionList);
   const [dailyGoal, setDailyGoal] = useState(2);
   const [problemsToDo, setProblemsToDo] = useState([]);
   const [newProblems, setNewProblems] = useState([]);
@@ -22,15 +22,14 @@ function App() {
     setDailyGoal(event.target.value);
   }
 
-  for (let i = 0; i< questionData.length; i++){
-    // console.log(key);
-    let key = i;
-    if (typeof window.localStorage[`${key}`] === "undefined")
-    {
-      const table = questionData[i];
-      window.localStorage.setItem(`${key}`, JSON.stringify(table));
-    }
+  if (typeof window.localStorage['questions'] === 'undefined'){
+    window.localStorage.setItem('questions', JSON.stringify(questionData));
   }
+
+  if (typeof window.localStorage['progress'] === 'undefined'){
+    window.localStorage.setItem('progress',JSON.stringify(0));
+  }
+  
 
   useEffect(() => {
       // function to select random new problems and problems to review
@@ -87,26 +86,30 @@ function App() {
                   Daily Goal:
                 </Typography>
                 <FormControl size={"small"} >
-                  <Select
+                  <select
+                    id="select-daily-goal"
+                    data-cy="select-daily-goal"
                     value={dailyGoal}
                     onChange={handleDailyGoal}
                   >
                   {problemsToDo.length === 0 ?
-                    <MenuItem value={dailyGoal}>{dailyGoal}</MenuItem> 
+                    <option value={dailyGoal}>{dailyGoal}</option> 
                     : problemsToDo.map((problem, idx) => (
-                      <MenuItem 
-                        key={problem.id} 
+                      <option 
+                        key={problem.id}
+                        data-cy={"select-option-" + (idx+1)}
                         value={idx+1}>
                           {idx+1}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </Select>
+                  </select>
                 </FormControl>
                 <Typography variant="h6"> 
                   new problems
                 </Typography>
               </div>
-              <ol className="problem-list">
+              <ol className="problem-list"
+                  data-cy="daily-problems">
                 {newProblems.map((question) =>
                   <li key={question.id}>
                     <a href={question.url}  target="_blank">{question.name}</a>
