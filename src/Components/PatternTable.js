@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { TextField } from '@mui/material';
 import "./PatternTable.css";
 import ControlledCheckbox from './ControlledCheckbox';
 // import { patterns, questions } from '../data/data';

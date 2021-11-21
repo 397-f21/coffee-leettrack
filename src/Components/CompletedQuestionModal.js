@@ -37,11 +37,13 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, setQu
       };
 
     const updateProblem = async () => {
-        let question = JSON.parse(window.localStorage.getItem(`questions`))[problemID];
         let questions = JSON.parse(window.localStorage.getItem(`questions`));
+        let question = questions[problemID]
         
         if (validate()) {
-            question.complete = !question.complete;
+            console.log("we here")
+            console.log(question.complete)
+            //question.complete = !question.complete;
             question.comment['notes'] = notes;
             question.review = +review;
             questions[problemID] = question;
