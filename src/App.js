@@ -86,26 +86,30 @@ function App() {
                   Daily Goal:
                 </Typography>
                 <FormControl size={"small"} >
-                  <Select
+                  <select
+                    id="select-daily-goal"
+                    data-cy="select-daily-goal"
                     value={dailyGoal}
                     onChange={handleDailyGoal}
                   >
                   {problemsToDo.length === 0 ?
-                    <MenuItem value={dailyGoal}>{dailyGoal}</MenuItem> 
+                    <option value={dailyGoal}>{dailyGoal}</option> 
                     : problemsToDo.map((problem, idx) => (
-                      <MenuItem 
-                        key={problem.id} 
+                      <option 
+                        key={problem.id}
+                        data-cy={"select-option-" + (idx+1)}
                         value={idx+1}>
                           {idx+1}
-                      </MenuItem>
+                      </option>
                     ))}
-                  </Select>
+                  </select>
                 </FormControl>
                 <Typography variant="h6"> 
                   new problems
                 </Typography>
               </div>
-              <ol className="problem-list">
+              <ol className="problem-list"
+                  data-cy="daily-problems">
                 {newProblems.map((question) =>
                   <li key={question.id}>
                     <a href={question.url}  target="_blank">{question.name}</a>
