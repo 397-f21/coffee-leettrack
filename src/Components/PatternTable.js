@@ -41,9 +41,7 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
   }
 
   const commentFormater = (commentObj) => {
-    return (
-      <div>{commentObj.notes}</div>
-    );
+    return commentObj.notes;
   }
   
   const urlFormater = (name) => {

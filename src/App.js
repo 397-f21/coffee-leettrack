@@ -3,12 +3,16 @@ import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
 import { Typography } from "@mui/material";
 import PatternTable from "./Components/PatternTable";
-import {patterns, questionList, questionData} from "./data/data.js";
+import {patterns, questionList} from "./data/data.js";
 
 
 function App() {
 
-  const [questions, setQuestions] = useState((typeof window.localStorage['questions'] === 'undefined') ? questionList : JSON.parse(window.localStorage.getItem('questions')));
+  if (typeof window.localStorage['questions'] === 'undefined'){
+    window.localStorage.setItem(`questions`, JSON.stringify(questionList))
+  }
+
+  const [questions, setQuestions] = useState(JSON.parse(window.localStorage.getItem('questions')));
   const [dailyGoal, setDailyGoal] = useState(2);
   const [dailyProblems, setDailyProblems] = useState([]);
   const [incompleteProblems, setIncompleteProblems] = useState([]);
@@ -21,7 +25,7 @@ function App() {
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
   }
-
+  
   useEffect(() => {
 
       // function to select random new problems and problems to review
