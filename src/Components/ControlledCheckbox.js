@@ -28,7 +28,7 @@ export default function ControlledCheckbox({ problemID, questions, setQuestions 
   };
 
   return (
-    <div>
+    <div data-cy={problemID}>
       <Checkbox
         data-testid= "checkbox"
         checked={Boolean(questions[problemID].complete)}

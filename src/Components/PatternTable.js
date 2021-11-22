@@ -53,7 +53,7 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
   };
 
   return (
-        <div className='PatternTable' style={{width: 620, height: 370 }}>
+        <div className='PatternTable' data-cy="PatternTable" style={{width: 620, height: 370 }}>
           <DataGrid
             rows={rows}
             columns={columns}
