@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { TextField } from '@mui/material';
+// import { TextField } from '@mui/material';
 import "./PatternTable.css";
 import ControlledCheckbox from './ControlledCheckbox';
 // import { patterns, questions } from '../data/data';
 
 
 
-const PatternTable = ({pattern, setQuestions}) => {
-  // console.log(`typeof(setQuestions): ${typeof(setQuestions)}`);
+const PatternTable = ({pattern, questions, setQuestions}) => {
 
   const columns = [
     { field: 'id', headerName: 'Completed', width: 100 ,
@@ -29,12 +28,13 @@ const PatternTable = ({pattern, setQuestions}) => {
     },},
   ];
 
-  let rows = Object.values(JSON.parse(window.localStorage.getItem('questions'))).filter(question => question['pattern'].includes(pattern));
+  let rows = JSON.parse(window.localStorage.getItem('questions')).filter(question => question['pattern'].includes(pattern));
   // console.table(rows);
   const checkBoxFormater = (id) => {
     return (
       <ControlledCheckbox 
-        id={id} 
+        problemID={id} 
+        questions={questions}
         setQuestions={setQuestions}
       />
     );
@@ -50,7 +50,7 @@ const PatternTable = ({pattern, setQuestions}) => {
     let prAdress = name.split(' ').join('-');
     let url = `https://www.leetcode.com/problems/${prAdress.toLowerCase()}/`
     return (
-      <a href={url}  target="_blank"> {name} </a>
+      <a href={url}  target="_blank" rel="noreferrer"> {name} </a>
     );
   };
 

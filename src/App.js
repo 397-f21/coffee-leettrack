@@ -1,64 +1,45 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
-import { Typography, MenuItem, FormControl, Select } from "@mui/material";
+import { Typography } from "@mui/material";
 import PatternTable from "./Components/PatternTable";
 import {patterns, questionList, questionData} from "./data/data.js";
 
 
 function App() {
 
-  const [questions, setQuestions] = useState(questionList);
+  const [questions, setQuestions] = useState((typeof window.localStorage['questions'] === 'undefined') ? questionList : JSON.parse(window.localStorage.getItem('questions')));
   const [dailyGoal, setDailyGoal] = useState(2);
-  const [problemsToDo, setProblemsToDo] = useState([]);
-  const [newProblems, setNewProblems] = useState([]);
+  const [dailyProblems, setDailyProblems] = useState([]);
+  const [incompleteProblems, setIncompleteProblems] = useState([]);
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
   
   const [patternSelected, setPatternSelected] = useState("Arrays");
 
-  //function for set daily goal
+  //function to set daily goal
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
   }
 
-  if (typeof window.localStorage['questions'] === 'undefined'){
-    window.localStorage.setItem('questions', JSON.stringify(questionData));
-  }
-
-  if (typeof window.localStorage['progress'] === 'undefined'){
-    window.localStorage.setItem('progress',JSON.stringify(0));
-  }
-  
-
   useEffect(() => {
+
       // function to select random new problems and problems to review
       const refreshProblems = () => {
-        // iterate through all problems to find all
-        // which have the review attribute of 1
-        var toReview = [];
-        var toDo = [];
-        var totalQuestions = 0;
-        for (const question of questions) {
-          if (question.complete === 0) {
-            toDo.push(question)
-          } else if (question.review === 1) {
-            toReview.push(question)
-          }
-          totalQuestions++;
-        }
+        const toDo = questions.filter(question => question.complete === 0);
+        const toReview = questions.filter(question => question.review === 1);
+        const totalQuestions = questions.length;
+
         setReviewProblems(toReview);
-        setProblemsToDo(toDo);
-        toDo = toDo.sort(() => Math.random());
-        // select dailyGoal random problems from the toDo list
-        setNewProblems(toDo.slice(0, dailyGoal));
-        // console.log(toDo.length);
-        // console.log(totalQuestions);
+        setIncompleteProblems(toDo);
+        // select dailyGoal random problems from the toDo list for the daily problems
+        toDo.sort((firstEl, secondEl) => Math.random());
+        setDailyProblems(toDo.slice(0, dailyGoal));
         setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
       }
 
       refreshProblems();
-      console.log(questions[0]);
+      window.localStorage.setItem('questions', JSON.stringify(questions))
       
   }, [dailyGoal, questions]);
 
@@ -73,7 +54,7 @@ function App() {
               <ProgressIcon 
               key={categoryName} 
               name={categoryName}
-              questions={questions.filter(x=>x.pattern.includes(categoryName))}
+              questions={questions.filter(question=>question.pattern.includes(categoryName))}
               setPatternSelected={setPatternSelected}/>
               ))}
           </div>
@@ -85,34 +66,32 @@ function App() {
                 <Typography variant="h6"> 
                   Daily Goal:
                 </Typography>
-                <FormControl size={"small"} >
-                  <select
-                    id="select-daily-goal"
-                    data-cy="select-daily-goal"
-                    value={dailyGoal}
-                    onChange={handleDailyGoal}
-                  >
-                  {problemsToDo.length === 0 ?
-                    <option value={dailyGoal}>{dailyGoal}</option> 
-                    : problemsToDo.map((problem, idx) => (
-                      <option 
-                        key={problem.id}
-                        data-cy={"select-option-" + (idx+1)}
-                        value={idx+1}>
-                          {idx+1}
-                      </option>
-                    ))}
-                  </select>
-                </FormControl>
+                <select
+                  id="select-daily-goal"
+                  data-cy="select-daily-goal"
+                  value={dailyGoal}
+                  onChange={handleDailyGoal}
+                >
+                {incompleteProblems.length === 0 ?
+                  <option value={dailyGoal}>{dailyGoal}</option> 
+                  : incompleteProblems.map((problem, idx) => (
+                    <option 
+                      key={problem.id}
+                      data-cy={"select-option-" + (idx+1)}
+                      value={idx+1}>
+                        {idx+1}
+                    </option>
+                  ))}
+                </select>
                 <Typography variant="h6"> 
                   new problems
                 </Typography>
               </div>
               <ol className="problem-list"
                   data-cy="daily-problems">
-                {newProblems.map((question) =>
+                {dailyProblems.map((question) =>
                   <li key={question.id}>
-                    <a href={question.url}  target="_blank">{question.name}</a>
+                    <a href={question.url}  target="_blank" rel="noreferrer">{question.name}</a>
                   </li>
                 )}
               </ol>
@@ -124,7 +103,7 @@ function App() {
               <ol className="problem-list">
                 {reviewProblems.map((question) =>
                   <li key={question.id}>
-                    <a href={question.url} target="_blank">{question.name}</a>
+                    <a href={question.url} target="_blank" rel="noreferrer">{question.name}</a>
                   </li>
                 )}
               </ol>
@@ -132,7 +111,7 @@ function App() {
           </div>
           <div className="card tableCard">
             <Typography variant="h5">All <b>{patternSelected.toLowerCase()}</b> problems</Typography>
-            <PatternTable pattern={patternSelected} setQuestions={setQuestions}/>
+            <PatternTable pattern={patternSelected} questions={questions} setQuestions={setQuestions}/>
           </div>
         </div>
       </div>

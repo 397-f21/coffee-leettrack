@@ -3,32 +3,44 @@ import Checkbox from "@mui/material/Checkbox";
 import CompletedQuestionModal from "./CompletedQuestionModal";
 
 
-export default function ControlledCheckbox({ pattern, id, setQuestions }) {
-  
-  let questions = JSON.parse(window.localStorage.getItem(`questions`));
-  console.log('first')
-  console.log(questions[id].complete)
-  const checked = questions[id].complete;
+export default function ControlledCheckbox({ problemID, questions, setQuestions }) {
   
   const [open, setOpen] = useState(false);
 
-  const handleChange = async (event) => {
-    console.log(questions[id].complete)
-    questions[id].complete = ! checked;
-    if (checked) questions[id].comment['notes'] = ''
-    window.localStorage.setItem(`questions`, JSON.stringify(questions));
-    setOpen(!checked);
+  const handleChange = (event) => {
+    if (questions[problemID].complete) {
+      setQuestions((prevQuestions) => (
+        [
+            ...prevQuestions.slice(0,problemID),
+            {
+                ...prevQuestions[problemID],
+                complete: 0,
+                comment: '',
+                review: 0
+            },
+            ...prevQuestions.slice(problemID+1)
+        ]
+      ));
+      console.log(questions[problemID]);
+    } else {
+      setOpen(true);
+    }
   };
 
   return (
     <div>
       <Checkbox
         data-testid= "checkbox"
-        checked={Boolean(checked)}
+        checked={Boolean(questions[problemID].complete)}
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}
         />
-      <CompletedQuestionModal open={open} setOpen={setOpen} problemID={id} setQuestions={setQuestions}/>
+      <CompletedQuestionModal 
+        open={open} 
+        setOpen={setOpen} 
+        problemID={problemID} 
+        questions={questions} 
+        setQuestions={setQuestions}/>
 
     </div>
   );
