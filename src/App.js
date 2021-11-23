@@ -13,6 +13,11 @@ function App() {
     window.localStorage.setItem(`questions`, JSON.stringify(questionList))
   }
 
+  if (typeof window.localStorage['time'] === 'undefined'){
+    const date = new Date();
+    window.localStorage.setItem(`time`, date.getTime())
+  }
+
   const [questions, setQuestions] = useState(JSON.parse(window.localStorage.getItem('questions')));
   const [dailyGoal, setDailyGoal] = useState(2);
   const [dailyProblems, setDailyProblems] = useState([]);
@@ -28,7 +33,11 @@ function App() {
   }
   
   useEffect(() => {
-
+    const curr = new Date();
+    console.log(curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)));
+    if (curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)) > 86400000){
+      window.localStorage.setItem(`time`, curr.getTime());
+    }
       // function to select random new problems and problems to review
       const refreshProblems = () => {
         const toDo = questions.filter(question => question.complete === 0);

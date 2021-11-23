@@ -27,7 +27,7 @@ export default function ProgressIcon({ name, questions, setPatternSelected }) {
   }
 
   return (
-    <div>
+    <div data-cy={name}>
       <div className="card progressCard" 
             style={{background: `linear-gradient(to bottom,  ${color} 0%,${color1} 100%)`, width: divWidth}}
             onClick={changePattern}>

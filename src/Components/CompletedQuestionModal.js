@@ -64,7 +64,7 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, quest
         <Dialog data-testid="dialogTestId" open={open} onClose={handleClose}>
             <DialogTitle data-cy="addTaskTitle">Nice Work!</DialogTitle>
             <DialogContent>
-                <div id="newTaskForm">
+                <div id="newTaskForm" data-cy="addNotes">
                     <TextField
                         fullWidth
                         autoFocus
@@ -89,9 +89,11 @@ export default function CompletedQuestionModal({ open, setOpen, problemID, quest
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button data-testid="addButton" onClick={updateProblem}>
-                    Confirm
-                </Button>
+                <div data-cy="confirm">
+                    <Button data-testid="addButton" onClick={updateProblem}>
+                        Confirm
+                    </Button>
+                </div>
             </DialogActions>
         </Dialog>
     );

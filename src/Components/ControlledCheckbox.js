@@ -28,7 +28,7 @@ export default function ControlledCheckbox({ problemID, questions, setQuestions 
   };
 
   return (
-    <div className="controlled-checkbox">
+    <div className="controlled-checkbox" data-cy={problemID}>
       <Checkbox
         size="small"
         data-testid= "checkbox"
