@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Typography } from "@mui/material";
 import "./index.css";
 import ProgressIcon from "./Components/ProgressIcon";
-import { Typography } from "@mui/material";
+import ControlledCheckbox from './Components/ControlledCheckbox';
 import PatternTable from "./Components/PatternTable";
 import {patterns, questionList} from "./data/data.js";
 
@@ -92,9 +93,15 @@ function App() {
                 </Typography>
               </div>
               <ol className="problem-list"
+                  id="daily-problems"
                   data-cy="daily-problems">
                 {dailyProblems.map((question) =>
-                  <li key={question.id}>
+                  <li className="daily-problem" key={question.id}>
+                    <ControlledCheckbox 
+                      problemID={question.id} 
+                      questions={questions}
+                      setQuestions={setQuestions}
+                    />
                     <a href={question.url}  target="_blank" rel="noreferrer">{question.name}</a>
                   </li>
                 )}
@@ -106,7 +113,7 @@ function App() {
               </div>
               <ol className="problem-list">
                 {reviewProblems.map((question) =>
-                  <li key={question.id}>
+                  <li key={question.id} className="review-problem">
                     <a href={question.url} target="_blank" rel="noreferrer">{question.name}</a>
                   </li>
                 )}
