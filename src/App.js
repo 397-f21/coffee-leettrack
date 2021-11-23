@@ -15,45 +15,66 @@ function App() {
 
   if (typeof window.localStorage['time'] === 'undefined'){
     const date = new Date();
-    window.localStorage.setItem(`time`, date.getTime())
+    window.localStorage.setItem(`time`, date.getTime());
   }
 
+
+  if (typeof window.localStorage['dailyNum'] === 'undefined'){
+    window.localStorage.setItem(`dailyNum`, 2);
+  }
+  
   const [questions, setQuestions] = useState(JSON.parse(window.localStorage.getItem('questions')));
-  const [dailyGoal, setDailyGoal] = useState(2);
+
+  const incomplete = questions.filter(question => question.complete === 0);
+  if (typeof window.localStorage['toDo'] === 'undefined'){
+    
+    window.localStorage.setItem(`toDo`, JSON.stringify(incomplete));
+  }
+
+  
+  const [dailyGoal, setDailyGoal] = useState(window.localStorage.getItem(`dailyNum`));
   const [dailyProblems, setDailyProblems] = useState([]);
-  const [incompleteProblems, setIncompleteProblems] = useState([]);
+  const [incompleteProblems, setIncompleteProblems] = useState(incomplete);
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
   
   const [patternSelected, setPatternSelected] = useState("Arrays");
-
+  
   //function to set daily goal
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
+    window.localStorage.setItem(`dailyNum`, event.target.value);
+    console.log(event.target.value)
   }
   
   useEffect(() => {
-    const curr = new Date();
-    console.log(curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)));
-    if (curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)) > 86400000){
-      window.localStorage.setItem(`time`, curr.getTime());
+    const dailyChange = time => {
+      window.localStorage.setItem(`time`, time.getTime());
+      const toDo = questions.filter(question => question.complete === 0);
+      setIncompleteProblems(toDo);
+      toDo.sort((firstEl, secondEl) => Math.random() - .5);
+      
+      window.localStorage.setItem('toDo', JSON.stringify(toDo))
     }
-      // function to select random new problems and problems to review
-      const refreshProblems = () => {
-        const toDo = questions.filter(question => question.complete === 0);
-        const toReview = questions.filter(question => question.review === 1);
-        const totalQuestions = questions.length;
 
-        setReviewProblems(toReview);
-        setIncompleteProblems(toDo);
-        // select dailyGoal random problems from the toDo list for the daily problems
-        toDo.sort((firstEl, secondEl) => Math.random());
-        setDailyProblems(toDo.slice(0, dailyGoal));
-        setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
-      }
 
-      refreshProblems();
-      window.localStorage.setItem('questions', JSON.stringify(questions))
+    const curr = new Date();
+    if (curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)) > 86400000){
+      
+      dailyChange(curr);
+    }
+
+    const refreshProblems = () => { 
+      const dailys = JSON.parse(window.localStorage.getItem('toDo'));
+      setReviewProblems(questions.filter(question => question.review === 1));
+
+      setDailyProblems(dailys.slice(0, dailyGoal));
+      const totalQuestions = questions.length;
+      setPercentComplete(Math.floor((totalQuestions - dailys.length)/totalQuestions*100));
+    }
+      
+    refreshProblems();
+    window.localStorage.setItem('questions', JSON.stringify(questions))
       
   }, [dailyGoal, questions]);
 
