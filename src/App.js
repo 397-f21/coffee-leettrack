@@ -61,18 +61,19 @@ function App() {
 
     const curr = new Date();
     if (curr.getTime() - JSON.parse(window.localStorage.getItem(`time`)) > 86400000){
-      
       dailyChange(curr);
     }
 
     const refreshProblems = () => { 
       const dailys = JSON.parse(window.localStorage.getItem('toDo'));
       setReviewProblems(questions.filter(question => question.review === 1));
-
+      const toDo = questions.filter(question => question.complete === 0);
+      setIncompleteProblems(toDo);
+      console.log(incompleteProblems.length)
       setDailyProblems(dailys.slice(0, dailyGoal));
       const totalQuestions = questions.length;
-      setPercentComplete(Math.floor((totalQuestions - dailys.length)/totalQuestions*100));
-    }
+      setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
+    } //might need to check setIncompleteProblems logic but i think its fine -Daniel
       
     refreshProblems();
     window.localStorage.setItem('questions', JSON.stringify(questions))
