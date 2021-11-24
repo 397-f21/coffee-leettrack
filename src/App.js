@@ -26,15 +26,16 @@ function App() {
   const [questions, setQuestions] = useState(JSON.parse(window.localStorage.getItem('questions')));
 
   const incomplete = questions.filter(question => question.complete === 0);
+  const [incompleteProblems, setIncompleteProblems] = useState(incomplete);
+  
   if (typeof window.localStorage['toDo'] === 'undefined'){
-    
+    incomplete.sort((firstEl, secondEl) => Math.random() - .5);
     window.localStorage.setItem(`toDo`, JSON.stringify(incomplete));
   }
-
   
   const [dailyGoal, setDailyGoal] = useState(window.localStorage.getItem(`dailyNum`));
   const [dailyProblems, setDailyProblems] = useState([]);
-  const [incompleteProblems, setIncompleteProblems] = useState(incomplete);
+  
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
   
