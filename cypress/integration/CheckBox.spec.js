@@ -17,4 +17,9 @@ describe ('Checkboxes', () => {
         cy.get('[data-cy=DFS]').click();
         cy.get('[data-cy=PatternTable]').should('contain', 'test5')
     });
+
+    it ('clickling on checkbox opens modal', () => {
+        cy.get('data-testid=checkbox').click();
+        cy.get('data-cy=addTaskTitle').should('contain', 'Nice Work!');
+    });
 });
