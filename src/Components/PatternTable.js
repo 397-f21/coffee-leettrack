@@ -22,7 +22,7 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
     { field: 'difficulty', headerName: 'Difficulty',width:100},
     
     
-    { field: 'comment', headerName: 'Comment', width: 400,
+    { field: 'comment', headerName: 'Comment', width: 600,
     renderCell: (params) => {
       return commentFormater(params.value);
     },},
@@ -53,12 +53,11 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
   };
 
   return (
-        <div className='PatternTable' data-cy="PatternTable" style={{width: 620, height: 370 }}>
+        <div className='PatternTable' data-cy="PatternTable">
           <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5,10,20]}
+            pageSize={20}
             />
         </div>
     );

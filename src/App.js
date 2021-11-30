@@ -5,6 +5,7 @@ import ProgressIcon from "./Components/ProgressIcon";
 import ControlledCheckbox from './Components/ControlledCheckbox';
 import PatternTable from "./Components/PatternTable";
 import {patterns, questionList} from "./data/data.js";
+import { Center } from "@chakra-ui/layout";
 
 
 function App() {
@@ -22,39 +23,39 @@ function App() {
   if (typeof window.localStorage['dailyNum'] === 'undefined'){
     window.localStorage.setItem(`dailyNum`, 2);
   }
-  
+
   const [questions, setQuestions] = useState(JSON.parse(window.localStorage.getItem('questions')));
 
   const incomplete = questions.filter(question => question.complete === 0);
   const [incompleteProblems, setIncompleteProblems] = useState(incomplete);
-  
+
   if (typeof window.localStorage['toDo'] === 'undefined'){
     incomplete.sort((firstEl, secondEl) => Math.random() - .5);
     window.localStorage.setItem(`toDo`, JSON.stringify(incomplete));
   }
-  
+
   const [dailyGoal, setDailyGoal] = useState(window.localStorage.getItem(`dailyNum`));
   const [dailyProblems, setDailyProblems] = useState([]);
-  
+
   const [reviewProblems, setReviewProblems] = useState([]);
   const [percentComplete, setPercentComplete] = useState(0);
-  
+
   const [patternSelected, setPatternSelected] = useState("Arrays");
-  
+
   //function to set daily goal
   const handleDailyGoal =(event)=>{
     setDailyGoal(event.target.value);
     window.localStorage.setItem(`dailyNum`, event.target.value);
     console.log(event.target.value)
   }
-  
+
   useEffect(() => {
     const dailyChange = time => {
       window.localStorage.setItem(`time`, time.getTime());
       const toDo = questions.filter(question => question.complete === 0);
       setIncompleteProblems(toDo);
       toDo.sort((firstEl, secondEl) => Math.random() - .5);
-      
+
       window.localStorage.setItem('toDo', JSON.stringify(toDo))
     }
 
@@ -64,7 +65,7 @@ function App() {
       dailyChange(curr);
     }
 
-    const refreshProblems = () => { 
+    const refreshProblems = () => {
       const dailys = JSON.parse(window.localStorage.getItem('toDo'));
       setReviewProblems(questions.filter(question => question.review === 1));
       const toDo = questions.filter(question => question.complete === 0);
@@ -74,22 +75,21 @@ function App() {
       const totalQuestions = questions.length;
       setPercentComplete(Math.floor((totalQuestions - toDo.length)/totalQuestions*100));
     } //might need to check setIncompleteProblems logic but i think its fine -Daniel
-      
+
     refreshProblems();
     window.localStorage.setItem('questions', JSON.stringify(questions))
-      
+
   }, [dailyGoal, questions]);
 
   return (
     <div className="App">
       <div className="content">
         <div id="progress-column">
-          <Typography variant="h2" style={{ marginBottom: 15 }}>LeetTrack</Typography>
-          <Typography variant="h5"> Overall Progress: {percentComplete}%</Typography>
+          <Typography variant="h2" align="center" style={{ marginBottom: 15 },{marginTop:65}}>LeetTrack</Typography>
           <div id="progress-component-list">
             {Object.keys(patterns).map((categoryName) => (
-              <ProgressIcon 
-              key={categoryName} 
+              <ProgressIcon
+              key={categoryName}
               name={categoryName}
               questions={questions.filter(question=>question.pattern.includes(categoryName))}
               setPatternSelected={setPatternSelected}/>
@@ -100,7 +100,7 @@ function App() {
           <div id="new-and-review">
             <div id="new-questions" className="card questionCard">
               <div className="question-list-header">
-                <Typography variant="h6"> 
+                <Typography variant="h6">
                   Daily Goal:
                 </Typography>
                 <select
@@ -110,9 +110,9 @@ function App() {
                   onChange={handleDailyGoal}
                 >
                 {incompleteProblems.length === 0 ?
-                  <option value={dailyGoal}>{dailyGoal}</option> 
+                  <option value={dailyGoal}>{dailyGoal}</option>
                   : incompleteProblems.map((problem, idx) => (
-                    <option 
+                    <option
                       key={problem.id}
                       data-cy={"select-option-" + (idx+1)}
                       value={idx+1}>
@@ -120,7 +120,7 @@ function App() {
                     </option>
                   ))}
                 </select>
-                <Typography variant="h6"> 
+                <Typography variant="h6">
                   new problems
                 </Typography>
               </div>
@@ -129,8 +129,8 @@ function App() {
                   data-cy="daily-problems">
                 {dailyProblems.map((question) =>
                   <li className="daily-problem" key={question.id}>
-                    <ControlledCheckbox 
-                      problemID={question.id} 
+                    <ControlledCheckbox
+                      problemID={question.id}
                       questions={questions}
                       setQuestions={setQuestions}
                     />
@@ -151,9 +151,14 @@ function App() {
                 )}
               </ol>
             </div>
+            <div id="progress" className="card questionCard">
+              <div className="question-list-header">
+                <Typography variant="h6" style={{paddingTop: 5}}> Overall Progress: {percentComplete}%</Typography>
+              </div>
+            </div>
           </div>
           <div className="card tableCard">
-            <Typography variant="h5">All <b>{patternSelected.toLowerCase()}</b> problems</Typography>
+            <Typography variant="h5"><b>{patternSelected.toLowerCase()}</b></Typography>
             <PatternTable pattern={patternSelected} questions={questions} setQuestions={setQuestions}/>
           </div>
         </div>
