@@ -89,7 +89,7 @@ function App() {
     <div className="App">
       <div className="content">
         <div id="progress-column">
-          <Typography variant="h2" align="center" style={{ marginBottom: 15 },{marginTop:65}}>LeetTrack</Typography>
+          <Typography variant="h2" align="center" style={{ marginBottom: 15 }}>LeetTrack</Typography>
           <div id="progress-component-list">
             {Object.keys(patterns).map((categoryName) => (
               <ProgressIcon
@@ -125,7 +125,7 @@ function App() {
                   ))}
                 </select>
                 <Typography variant="h6">
-                  new problems
+                  problems
                 </Typography>
               </div>
               <ol className="problem-list"
@@ -145,7 +145,7 @@ function App() {
             </div >
             <div id="review-questions" className="card questionCard">
               <div className="question-list-header">
-                <Typography variant="h6" style={{paddingTop: 5}}> Problems up for review:</Typography>
+                <Typography variant="h6" > Problems up for review:</Typography>
               </div>
               <ol className="problem-list">
                 {reviewProblems.map((question) =>
@@ -163,7 +163,7 @@ function App() {
             </div>
           </div>
           <div className="card tableCard">
-            <Typography variant="h5">Current Topic: <b>{capitalizeWord(patternSelected.toLowerCase())}</b></Typography>
+            <Typography variant="h5" id="current-topic">Current Topic: <b>{capitalizeWord(patternSelected.toLowerCase())}</b></Typography>
             <PatternTable pattern={patternSelected} questions={questions} setQuestions={setQuestions}/>
           </div>
         </div>
