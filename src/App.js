@@ -48,6 +48,10 @@ function App() {
     window.localStorage.setItem(`dailyNum`, event.target.value);
     console.log(event.target.value)
   }
+  const capitalizeWord = (str) => {
+    const lower = str.toLowerCase();
+    return str.charAt(0).toUpperCase() + lower.slice(1);
+  };
 
   useEffect(() => {
     const dailyChange = time => {
@@ -152,13 +156,14 @@ function App() {
               </ol>
             </div>
             <div id="progress" className="card questionCard">
-              <div className="question-list-header">
-                <Typography variant="h6" style={{paddingTop: 5}}> Overall Progress: {percentComplete}%</Typography>
+              <div className="progressOverallCard">
+                <Typography variant="h6" align = 'center' style={{paddingTop: 5}}> Your Progress: </Typography>
+                <Typography variant="h1" align = 'center' style={{paddingTop: 5}}> {percentComplete}% </Typography>
               </div>
             </div>
           </div>
           <div className="card tableCard">
-            <Typography variant="h5"><b>{patternSelected.toLowerCase()}</b></Typography>
+            <Typography variant="h5">Current Topic: <b>{capitalizeWord(patternSelected.toLowerCase())}</b></Typography>
             <PatternTable pattern={patternSelected} questions={questions} setQuestions={setQuestions}/>
           </div>
         </div>

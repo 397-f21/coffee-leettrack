@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-// import { TextField } from '@mui/material';
 import "./PatternTable.css";
 import ControlledCheckbox from './ControlledCheckbox';
-// import { patterns, questions } from '../data/data';
 
 
 
@@ -57,7 +55,7 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
           <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={20}
+            pageSize={23}
             />
         </div>
     );
