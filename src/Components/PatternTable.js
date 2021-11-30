@@ -55,7 +55,7 @@ const PatternTable = ({pattern, questions, setQuestions}) => {
           <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={5}
+            pageSize={23}
             />
         </div>
     );
